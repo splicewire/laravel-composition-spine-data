@@ -1,0 +1,34 @@
+{
+    "name": "rushing/laravel-composition-spine-data",
+    "description": "The composition spine's shared Data/DTO + schema authoring vocabulary: generation attributes, the data-schemas projection strategy, the angle layer, the BeatGrammar projector, and the structured-export I/O DTOs with 1:1 hydration. The heavy composition engine stays private; this is the surface satellites and the client share without it.",
+    "type": "library",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "rushing/laravel-data-schemas": "*",
+        "spatie/laravel-data": "^4.0|^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rushing\\CompositionSpineData\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rushing\\CompositionSpineData\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rushing\\CompositionSpineData\\CompositionSpineDataServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-main": "1.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
