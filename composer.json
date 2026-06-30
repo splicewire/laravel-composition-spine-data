@@ -30,5 +30,11 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "pint": "@php -d memory_limit=512M vendor/bin/pint"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0"
+    }
 }
