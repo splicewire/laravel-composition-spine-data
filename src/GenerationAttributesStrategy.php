@@ -30,33 +30,40 @@ use Rushing\LaravelDataSchemas\Strategies\SchemaStrategyContext;
  */
 final class GenerationAttributesStrategy implements SchemaStrategy
 {
+    private readonly KeywordVocabulary $vocab;
+
+    public function __construct(?KeywordVocabulary $vocab = null)
+    {
+        $this->vocab = $vocab ?? KeywordVocabulary::shared();
+    }
+
     public function apply(ReflectionProperty $property, array $schema, SchemaStrategyContext $context): array
     {
         if ($beat = $this->firstAttribute($property, Beat::class)) {
-            $schema['x-beat'] = $beat->kind->value;
+            $schema[$this->vocab->beat()] = $beat->kind->value;
         }
 
         if ($ground = $this->firstAttribute($property, Ground::class)) {
-            $schema['x-ground'] = $ground->keyword();
+            $schema[$this->vocab->ground()] = $ground->keyword();
         }
 
         if ($generate = $this->firstAttribute($property, Generate::class)) {
-            $schema['x-generate'] = $generate->keyword();
+            $schema[$this->vocab->generate()] = $generate->keyword();
         }
 
         if ($prose = $this->firstAttribute($property, Prose::class)) {
-            $schema['x-prose'] = $prose->role->value;
+            $schema[$this->vocab->prose()] = $prose->role->value;
             if ($prose->note !== null) {
-                $schema['x-prose-note'] = $prose->note;
+                $schema[$this->vocab->proseNote()] = $prose->note;
             }
         }
 
         if ($pause = $this->firstAttribute($property, Pause::class)) {
-            $schema['x-pause'] = $pause->enabled;
+            $schema[$this->vocab->pause()] = $pause->enabled;
         }
 
         if ($cache = $this->firstAttribute($property, Cache::class)) {
-            $schema['x-cache'] = $cache->keyword();
+            $schema[$this->vocab->cache()] = $cache->keyword();
         }
 
         if ($palette = $this->firstAttribute($property, EmbedPalette::class)) {

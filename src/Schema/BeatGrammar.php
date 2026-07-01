@@ -9,6 +9,7 @@ use Rushing\CompositionSpineData\Attributes\Beat;
 use Rushing\CompositionSpineData\Attributes\Generate;
 use Rushing\CompositionSpineData\Attributes\Ground;
 use Rushing\CompositionSpineData\Attributes\Prose;
+use Rushing\CompositionSpineData\KeywordVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 
 /**
@@ -98,6 +99,8 @@ final class BeatGrammar
     {
         $reflection = new ReflectionClass($this->leafClass);
 
+        $vocab = KeywordVocabulary::shared();
+
         $beatMode = $this->beatMode($reflection);
         $generate = $reflection->getAttributes(Generate::class) !== [];
         $ground = $reflection->getAttributes(Ground::class) !== [];
@@ -113,13 +116,13 @@ final class BeatGrammar
 
             $node = ['type' => 'object'];
             if ($beatMode !== null) {
-                $node['x-beat'] = $beatMode;
+                $node[$vocab->beat()] = $beatMode;
             }
             if ($generate) {
-                $node['x-generate'] = true;
+                $node[$vocab->generate()] = true;
             }
             if ($ground) {
-                $node['x-ground'] = true;
+                $node[$vocab->ground()] = true;
             }
             $node['description'] = $beat['description'];
             // Strict structured-output providers (OpenAI et al.) require every object to set
@@ -173,7 +176,7 @@ final class BeatGrammar
     {
         if ($field !== null && isset($properties[$field])) {
             if ($role !== null) {
-                $properties[$field]['x-prose'] = $role;
+                $properties[$field][KeywordVocabulary::shared()->prose()] = $role;
             }
             if ($proseDescription !== null) {
                 $properties[$field]['description'] = $proseDescription;
