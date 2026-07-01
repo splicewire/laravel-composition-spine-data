@@ -40,6 +40,52 @@ final class KeywordVocabulary
         return new self;
     }
 
+    /**
+     * The vocabulary that AUTHORED a persisted schema, detected from its own keyword keys. A stored antenna
+     * schema is only interpretable by the vocab that wrote it — keyword prefixes change over time (a legacy
+     * schema carries bare `x-beat`, a current one `x-swc-beat`), so re-derivation (regenerate / refine)
+     * must read a schema through its OWN prefix, not the reader's active one. Falls back to {@see shared()}
+     * when no engine keyword is present (nothing to detect).
+     *
+     * @param  array<string, mixed>  $schema  a collapsed JSON Schema carrying `x-*` keywords
+     */
+    public static function forSchema(array $schema): self
+    {
+        $prefix = self::detectPrefix($schema);
+
+        return $prefix === null ? self::shared() : new self($prefix);
+    }
+
+    /**
+     * The keyword prefix a schema was authored with, found by scanning (recursively) for its `beat`
+     * keyword: bare `x-beat` → the legacy empty prefix (`''`); `x-swc-beat` → `swc`. Returns null when no
+     * beat keyword is present.
+     *
+     * @param  array<string, mixed>  $schema
+     */
+    private static function detectPrefix(array $schema): ?string
+    {
+        foreach ($schema as $key => $value) {
+            if (is_string($key)) {
+                if ($key === 'x-beat') {
+                    return '';
+                }
+                if (preg_match('/^x-(.+)-beat$/', $key, $m) === 1) {
+                    return $m[1];
+                }
+            }
+
+            if (is_array($value)) {
+                $nested = self::detectPrefix($value);
+                if ($nested !== null) {
+                    return $nested;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public function beat(): string
     {
         return $this->engine('beat');
@@ -91,6 +137,8 @@ final class KeywordVocabulary
 
     private function engine(string $name): string
     {
-        return "x-{$this->prefix}-{$name}";
+        return $this->prefix === ''
+            ? "x-{$name}"
+            : "x-{$this->prefix}-{$name}";
     }
 }
