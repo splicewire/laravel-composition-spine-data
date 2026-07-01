@@ -7,6 +7,7 @@ namespace Rushing\CompositionSpineData;
 use ReflectionClass;
 use ReflectionProperty;
 use Rushing\CompositionSpineData\Attributes\Beat;
+use Rushing\CompositionSpineData\Attributes\Cache;
 use Rushing\CompositionSpineData\Attributes\EmbedPalette;
 use Rushing\CompositionSpineData\Attributes\Generate;
 use Rushing\CompositionSpineData\Attributes\Ground;
@@ -52,6 +53,10 @@ final class GenerationAttributesStrategy implements SchemaStrategy
 
         if ($pause = $this->firstAttribute($property, Pause::class)) {
             $schema['x-pause'] = $pause->enabled;
+        }
+
+        if ($cache = $this->firstAttribute($property, Cache::class)) {
+            $schema['x-cache'] = $cache->keyword();
         }
 
         if ($palette = $this->firstAttribute($property, EmbedPalette::class)) {
