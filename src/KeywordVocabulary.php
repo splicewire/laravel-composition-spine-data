@@ -116,6 +116,11 @@ final class KeywordVocabulary
         return $this->engine('pause');
     }
 
+    public function polish(): string
+    {
+        return $this->engine('polish');
+    }
+
     public function prose(): string
     {
         return $this->engine('prose');

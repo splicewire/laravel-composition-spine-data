@@ -12,6 +12,7 @@ use Rushing\CompositionSpineData\Attributes\EmbedPalette;
 use Rushing\CompositionSpineData\Attributes\Generate;
 use Rushing\CompositionSpineData\Attributes\Ground;
 use Rushing\CompositionSpineData\Attributes\Pause;
+use Rushing\CompositionSpineData\Attributes\Polish;
 use Rushing\CompositionSpineData\Attributes\Prose;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
@@ -60,6 +61,10 @@ final class GenerationAttributesStrategy implements SchemaStrategy
 
         if ($pause = $this->firstAttribute($property, Pause::class)) {
             $schema[$this->vocab->pause()] = $pause->enabled;
+        }
+
+        if ($polish = $this->firstAttribute($property, Polish::class)) {
+            $schema[$this->vocab->polish()] = $polish->auto;
         }
 
         if ($cache = $this->firstAttribute($property, Cache::class)) {
