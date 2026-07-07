@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -16,9 +14,9 @@ use Attribute;
  * `x-pause` — never this PHP attribute.
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
-final class Pause
+class Pause
 {
     public function __construct(
-        public readonly bool $enabled = true,
+        public bool $enabled = true,
     ) {}
 }

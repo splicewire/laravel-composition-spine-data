@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -31,12 +29,12 @@ use Spatie\LaravelData\Data;
  * designed for it but not exercised by a strict provider yet.
  */
 #[Attribute(Attribute::TARGET_PROPERTY)]
-final class EmbedPalette
+class EmbedPalette
 {
     /**
      * @param  list<class-string>  $types  embed-node `Data` class-strings the model may place.
      */
     public function __construct(
-        public readonly array $types,
+        public array $types,
     ) {}
 }

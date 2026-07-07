@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData;
 
 use ReflectionClass;
@@ -29,9 +27,9 @@ use Rushing\LaravelDataSchemas\Strategies\SchemaStrategyContext;
  * Registered into `config('data-schemas.strategies')` by this package's service
  * provider; it contributes nothing to a property without these attributes.
  */
-final class GenerationAttributesStrategy implements SchemaStrategy
+class GenerationAttributesStrategy implements SchemaStrategy
 {
-    private readonly KeywordVocabulary $vocab;
+    private KeywordVocabulary $vocab;
 
     public function __construct(?KeywordVocabulary $vocab = null)
     {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -13,9 +11,9 @@ use Attribute;
  * by forLlmStrict. The interpreter reads `x-beat` — never this PHP attribute.
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
-final class Beat
+class Beat
 {
     public function __construct(
-        public readonly BeatKind $kind = BeatKind::Expandable,
+        public BeatKind $kind = BeatKind::Expandable,
     ) {}
 }

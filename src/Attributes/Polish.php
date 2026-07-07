@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -14,9 +12,9 @@ use Attribute;
  * keyword (via the walked Beat), never this PHP attribute. Absent the attribute a beat stays polish-eligible.
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
-final class Polish
+class Polish
 {
     public function __construct(
-        public readonly bool $auto = true,
+        public bool $auto = true,
     ) {}
 }

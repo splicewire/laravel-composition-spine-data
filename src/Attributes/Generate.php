@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -18,10 +16,10 @@ use Rushing\CompositionSpineData\Schema\BeatGrammar;
  * projects from the leaf as generate-able (`x-generate: true`).
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
-final class Generate
+class Generate
 {
     public function __construct(
-        public readonly ?string $with = null,
+        public ?string $with = null,
     ) {}
 
     public function keyword(): string|bool

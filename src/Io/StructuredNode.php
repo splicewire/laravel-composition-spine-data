@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Io;
 
 /**
@@ -14,7 +12,7 @@ namespace Rushing\CompositionSpineData\Io;
  * `children` is intentionally mutable so reconstruction can attach descendants;
  * the leaf payload (`type`/`fields`/`groundingTokens`/`path`) is read-only.
  */
-final class StructuredNode
+class StructuredNode
 {
     /**
      * @param  array<string, mixed>  $fields
@@ -22,10 +20,10 @@ final class StructuredNode
      * @param  array<int, StructuredNode>  $children
      */
     public function __construct(
-        public readonly ?string $type,
-        public readonly array $fields,
-        public readonly array $groundingTokens,
-        public readonly string $path,
+        public ?string $type,
+        public array $fields,
+        public array $groundingTokens,
+        public string $path,
         public array $children = [],
     ) {}
 

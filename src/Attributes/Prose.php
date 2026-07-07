@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -15,10 +13,10 @@ use Attribute;
  * schema, not in a blanket prompt rule.
  */
 #[Attribute(Attribute::TARGET_PROPERTY)]
-final class Prose
+class Prose
 {
     public function __construct(
-        public readonly ProseRole $role,
-        public readonly ?string $note = null,
+        public ProseRole $role,
+        public ?string $note = null,
     ) {}
 }

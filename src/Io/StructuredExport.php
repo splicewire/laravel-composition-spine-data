@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Io;
 
 /**
@@ -19,7 +17,7 @@ namespace Rushing\CompositionSpineData\Io;
  * {@see self::tree()}, and hydrate nodes into our 1:1 Data classes with
  * {@see self::hydrateNodes()}.
  */
-final class StructuredExport
+class StructuredExport
 {
     /**
      * @param  array<string, mixed>|null  $schema  the host-supplied generation schema, echoed back.
@@ -28,10 +26,10 @@ final class StructuredExport
      * @param  array<string, float>  $costByMeter  cost-of-goods broken down per Meter.
      */
     public function __construct(
-        public readonly ?array $schema,
-        public readonly array $nodes,
-        public readonly ?float $costUsd = null,
-        public readonly array $costByMeter = [],
+        public ?array $schema,
+        public array $nodes,
+        public ?float $costUsd = null,
+        public array $costByMeter = [],
     ) {}
 
     /**

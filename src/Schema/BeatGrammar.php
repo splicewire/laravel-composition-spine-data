@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Schema;
 
 use ReflectionClass;
@@ -37,7 +35,7 @@ use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
  * is no second hand-written generation-schema array — "reduced" projections come from
  * laravel-data `Optional`/`Lazy`/`only()` and the generator's request/response/llm modes.
  */
-final class BeatGrammar
+class BeatGrammar
 {
     /** @var array<int, array{key: string, description: string, prose: ?string}> */
     private array $beats = [];
@@ -48,7 +46,7 @@ final class BeatGrammar
      * @param  class-string  $leafClass
      */
     private function __construct(
-        private readonly string $leafClass,
+        private string $leafClass,
     ) {}
 
     /**

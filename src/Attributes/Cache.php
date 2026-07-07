@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -21,7 +19,7 @@ use Attribute;
  * whole snapshot participates), so unrelated grounding changes don't needlessly bust the entry.
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
-final class Cache
+class Cache
 {
     /**
      * @param  'invocation'|'snapshot'  $scope
@@ -29,9 +27,9 @@ final class Cache
      * @param  array<int, string>  $key  optional grounding-key subset the cache key is derived from
      */
     public function __construct(
-        public readonly string $scope = 'invocation',
-        public readonly ?int $ttl = null,
-        public readonly array $key = [],
+        public string $scope = 'invocation',
+        public ?int $ttl = null,
+        public array $key = [],
     ) {}
 
     /**

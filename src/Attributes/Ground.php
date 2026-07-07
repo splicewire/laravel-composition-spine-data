@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Attributes;
 
 use Attribute;
@@ -19,10 +17,10 @@ use Rushing\CompositionSpineData\Schema\BeatGrammar;
  * projects from the leaf as grounded (`x-ground: true`).
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
-final class Ground
+class Ground
 {
     public function __construct(
-        public readonly ?string $from = null,
+        public ?string $from = null,
     ) {}
 
     public function keyword(): string|bool

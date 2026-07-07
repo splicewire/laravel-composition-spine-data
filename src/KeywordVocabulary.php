@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData;
 
 /**
@@ -17,9 +15,9 @@ namespace Rushing\CompositionSpineData;
  *    base-owned (canonical home: the `rushing/laravel-json-reference` leaf) and means the same thing
  *    across every engine. A cross-engine handle only works if the keyword carrying it is unprefixed.
  */
-final class KeywordVocabulary
+class KeywordVocabulary
 {
-    public function __construct(public readonly string $prefix = 'swc') {}
+    public function __construct(public string $prefix = 'swc') {}
 
     /**
      * The shared, config-driven vocabulary: the container singleton when one is bound (so every emit and

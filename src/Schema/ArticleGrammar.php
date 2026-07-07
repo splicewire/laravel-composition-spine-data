@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Schema;
 
 use ReflectionClass;
@@ -36,7 +34,7 @@ use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
  * Hard rule (shared with `BeatGrammar`): the typed `Data` graph is the SINGLE authored
  * artifact — there is no second hand-written generation-schema array.
  */
-final class ArticleGrammar
+class ArticleGrammar
 {
     private ?string $title = null;
 
@@ -44,7 +42,7 @@ final class ArticleGrammar
      * @param  class-string  $rootClass
      */
     private function __construct(
-        private readonly string $rootClass,
+        private string $rootClass,
     ) {}
 
     /**

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Rushing\CompositionSpineData\Angles;
 
 use Rushing\CompositionSpineData\Contracts\AngleContract;
@@ -16,7 +14,7 @@ use Rushing\CompositionSpineData\Contracts\GroundingCategoryContract;
  * section plan and prompt fragment shape the body prompt, and the primary intent sets the primary CTA —
  * so layering a second angle changes only what the composer merges, never the consumers.
  */
-final readonly class ComposedShape
+class ComposedShape
 {
     /**
      * @param  array<int, AngleContract>  $angles  ordered, primary first
