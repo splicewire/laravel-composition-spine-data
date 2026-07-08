@@ -2,6 +2,8 @@
 
 namespace Rushing\CompositionSpineData;
 
+use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
+
 /**
  * The single chokepoint for this engine's schema keywords. Both the emit side (schema generation /
  * grammar) and every read site (the interpreter's grammar walk, prose discipline) route through one
@@ -136,6 +138,38 @@ class KeywordVocabulary
     public function dereference(): string
     {
         return 'x-dereference';
+    }
+
+    /**
+     * Every keyword this vocabulary names, as `accessor => keyword string`
+     * (e.g. `'beat' => 'x-swc-beat'`, `'dereference' => 'x-dereference'`).
+     *
+     * Derived by reflecting the public, no-argument, string-returning accessors on this
+     * class — the accessors ARE the source of truth, so a newly added keyword accessor
+     * joins the vocabulary automatically with no second hand-maintained list to drift.
+     * Both the describer ({@see GrammarVocabulary})
+     * and its coverage guard consume this, so every named keyword must be described.
+     *
+     * @return array<string, string>
+     */
+    public function keywords(): array
+    {
+        $out = [];
+
+        foreach ((new \ReflectionClass($this))->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
+            if ($method->isStatic() || $method->getNumberOfParameters() > 0) {
+                continue;
+            }
+
+            $type = $method->getReturnType();
+            if ($type instanceof \ReflectionNamedType && $type->getName() === 'string') {
+                $out[$method->getName()] = $method->invoke($this);
+            }
+        }
+
+        ksort($out);
+
+        return $out;
     }
 
     private function engine(string $name): string

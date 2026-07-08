@@ -5,6 +5,7 @@ namespace Rushing\CompositionSpineData;
 use ReflectionClass;
 use ReflectionProperty;
 use Rushing\CompositionSpineData\Attributes\Beat;
+use Rushing\CompositionSpineData\Attributes\BeatKind;
 use Rushing\CompositionSpineData\Attributes\Cache;
 use Rushing\CompositionSpineData\Attributes\EmbedPalette;
 use Rushing\CompositionSpineData\Attributes\Generate;
@@ -12,6 +13,11 @@ use Rushing\CompositionSpineData\Attributes\Ground;
 use Rushing\CompositionSpineData\Attributes\Pause;
 use Rushing\CompositionSpineData\Attributes\Polish;
 use Rushing\CompositionSpineData\Attributes\Prose;
+use Rushing\CompositionSpineData\Attributes\ProseRole;
+use Rushing\CompositionSpineData\Vocabulary\AttributeBinding;
+use Rushing\CompositionSpineData\Vocabulary\GenerationKeyword;
+use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
+use Rushing\CompositionSpineData\Vocabulary\ValueSource;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategyContext;
@@ -38,42 +44,145 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
     public function apply(ReflectionProperty $property, array $schema, SchemaStrategyContext $context): array
     {
-        if ($beat = $this->firstAttribute($property, Beat::class)) {
-            $schema[$this->vocab->beat()] = $beat->kind->value;
-        }
-
-        if ($ground = $this->firstAttribute($property, Ground::class)) {
-            $schema[$this->vocab->ground()] = $ground->keyword();
-        }
-
-        if ($generate = $this->firstAttribute($property, Generate::class)) {
-            $schema[$this->vocab->generate()] = $generate->keyword();
-        }
-
-        if ($prose = $this->firstAttribute($property, Prose::class)) {
-            $schema[$this->vocab->prose()] = $prose->role->value;
-            if ($prose->note !== null) {
-                $schema[$this->vocab->proseNote()] = $prose->note;
+        foreach (self::bindings() as $binding) {
+            if ($attr = $this->firstAttribute($property, $binding->attributeClass)) {
+                $schema = ($binding->emit)($attr, $this->vocab, $schema);
             }
         }
 
-        if ($pause = $this->firstAttribute($property, Pause::class)) {
-            $schema[$this->vocab->pause()] = $pause->enabled;
-        }
-
-        if ($polish = $this->firstAttribute($property, Polish::class)) {
-            $schema[$this->vocab->polish()] = $polish->auto;
-        }
-
-        if ($cache = $this->firstAttribute($property, Cache::class)) {
-            $schema[$this->vocab->cache()] = $cache->keyword();
-        }
-
+        // EmbedPalette is a structural branch, not a keyword: it reshapes `items`, stamps no
+        // `x-*` keyword, and so is NOT part of the generation-keyword vocabulary.
         if ($palette = $this->firstAttribute($property, EmbedPalette::class)) {
             $schema = $this->applyEmbedPalette($schema, $palette);
         }
 
         return $schema;
+    }
+
+    /**
+     * The single declared attribute↔keyword bindings, consumed by both {@see apply()} (emit) and
+     * {@see GrammarVocabulary} (describe). Each binding names the
+     * attribute, the closure that stamps its keyword(s), and the keyword descriptor(s) it contributes — the
+     * value domain of each keyword is a *reference* (an enum, a method return type, a ctor), reflected at
+     * describe time, never a literal here.
+     *
+     * @return list<AttributeBinding>
+     */
+    public static function bindings(): array
+    {
+        return [
+            new AttributeBinding(
+                Beat::class,
+                function (Beat $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->beat()] = $attr->kind->value;
+
+                    return $schema;
+                },
+                [new GenerationKeyword(
+                    accessor: 'beat',
+                    source: ValueSource::Enum,
+                    description: 'How the interpreter treats the beat at the frontier: expandable → one focused expansion call realizes its children; writable → the model writes the leaf directly.',
+                    sourceClass: BeatKind::class,
+                    tsType: 'BeatKind',
+                )],
+            ),
+            new AttributeBinding(
+                Ground::class,
+                function (Ground $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->ground()] = $attr->keyword();
+
+                    return $schema;
+                },
+                [new GenerationKeyword(
+                    accessor: 'ground',
+                    source: ValueSource::Union,
+                    description: 'Fill this property from the Composition grounding snapshot: a source name selects a registered ground capability, or `true` uses the property name as the source.',
+                    sourceClass: Ground::class,
+                    sourceMethod: 'keyword',
+                )],
+            ),
+            new AttributeBinding(
+                Generate::class,
+                function (Generate $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->generate()] = $attr->keyword();
+
+                    return $schema;
+                },
+                [new GenerationKeyword(
+                    accessor: 'generate',
+                    source: ValueSource::Union,
+                    description: 'Generate this property when its beat is expanded: a handler name selects a registered generate capability, or `true` uses the profile default.',
+                    sourceClass: Generate::class,
+                    sourceMethod: 'keyword',
+                )],
+            ),
+            new AttributeBinding(
+                Prose::class,
+                function (Prose $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->prose()] = $attr->role->value;
+                    if ($attr->note !== null) {
+                        $schema[$vocab->proseNote()] = $attr->note;
+                    }
+
+                    return $schema;
+                },
+                [
+                    new GenerationKeyword(
+                        accessor: 'prose',
+                        source: ValueSource::Enum,
+                        description: 'The prose disposition of a grounding field — how its facts may be discussed in body prose (subject → write freely; render-only → do not name; nameable → may be named).',
+                        sourceClass: ProseRole::class,
+                        tsType: 'ProseRole',
+                    ),
+                    new GenerationKeyword(
+                        accessor: 'proseNote',
+                        source: ValueSource::Text,
+                        description: 'An optional field-level prose instruction that accompanies the prose disposition.',
+                    ),
+                ],
+            ),
+            new AttributeBinding(
+                Pause::class,
+                function (Pause $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->pause()] = $attr->enabled;
+
+                    return $schema;
+                },
+                [new GenerationKeyword(
+                    accessor: 'pause',
+                    source: ValueSource::Boolean,
+                    description: 'Marks the beat a pause checkpoint (HITL): the interpreter yields its cell for review and does not expand its children until approved.',
+                )],
+            ),
+            new AttributeBinding(
+                Polish::class,
+                function (Polish $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->polish()] = $attr->auto;
+
+                    return $schema;
+                },
+                [new GenerationKeyword(
+                    accessor: 'polish',
+                    source: ValueSource::Boolean,
+                    description: 'Whether the beat is eligible for auto-polish; `false` fences its cells out of the whole-composition polish orchestrator.',
+                )],
+            ),
+            new AttributeBinding(
+                Cache::class,
+                function (Cache $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->cache()] = $attr->keyword();
+
+                    return $schema;
+                },
+                [new GenerationKeyword(
+                    accessor: 'cache',
+                    source: ValueSource::Object_,
+                    description: 'A caching policy for the beat generate/ground capability: `scope` (invocation → TTL-keyed; snapshot → frozen), optional `ttl`, and an optional grounding-key subset.',
+                    sourceClass: Cache::class,
+                    tsType: 'GenerationCachePolicy',
+                )],
+            ),
+        ];
     }
 
     /**
