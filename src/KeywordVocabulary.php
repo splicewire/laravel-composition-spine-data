@@ -19,6 +19,12 @@ use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
  */
 class KeywordVocabulary
 {
+    /**
+     * Accessors that name a base/standard keyword this vocabulary references but does NOT own — unprefixed,
+     * cross-engine, canonical home the `laravel-json-reference` leaf. Excluded from {@see engineKeywords()}.
+     */
+    private const BaseAccessors = ['dereference'];
+
     public function __construct(public string $prefix = 'swc') {}
 
     /**
@@ -168,6 +174,25 @@ class KeywordVocabulary
         }
 
         ksort($out);
+
+        return $out;
+    }
+
+    /**
+     * The engine-private keywords this vocabulary OWNS — {@see keywords()} minus the base/standard keywords
+     * it merely references (canonical home: the `laravel-json-reference` leaf). This is the set a composition
+     * describer must cover; the base keywords carry their description elsewhere and are unioned into any
+     * export at the composition point.
+     *
+     * @return array<string, string>
+     */
+    public function engineKeywords(): array
+    {
+        $out = $this->keywords();
+
+        foreach (self::BaseAccessors as $accessor) {
+            unset($out[$accessor]);
+        }
 
         return $out;
     }

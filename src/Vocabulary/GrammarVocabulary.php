@@ -15,23 +15,34 @@ use Rushing\LaravelDataSchemas\Vocabulary\ValueSource;
  * {@see KeywordVocabularyDescriber}; here we supply only which keywords the vocabulary comprises, how to
  * resolve their (prefix-aware) strings, and its identity.
  *
- * The vocabulary is *derived*, never hand-authored:
+ * The vocabulary is *derived*, never hand-authored, and composition describes only what it OWNS:
  *  - attribute-projected keywords come from {@see GenerationAttributesStrategy::bindings()} (the same source
  *    the emit path consumes), with each value domain reflected live — so a new enum case flows in with no
  *    edit here;
- *  - the read-side `max-depth` keyword (no attribute emits it) is declared by the engine;
- *  - the base, unprefixed `x-dereference` keyword is named via {@see KeywordVocabulary} (canonical home: the
- *    `rushing/laravel-json-reference` leaf), described as base-owned/cross-engine.
+ *  - the read-side `max-depth` keyword (no attribute emits it) is declared by the engine.
  *
- * A coverage guard (test) asserts every keyword {@see KeywordVocabulary::keywords()} names is described here.
+ * Base/standard keywords (the unprefixed `x-dereference`, owned by the `laravel-json-reference` leaf) are NOT
+ * composition's to describe — their meaning lives with their owner. They are passed in as `$baseKeywords` and
+ * unioned at the export composition point (which depends on both leaves); {@see keywordString()} still resolves
+ * their unprefixed string through this engine's {@see KeywordVocabulary}.
+ *
+ * A coverage guard (test) asserts every keyword {@see KeywordVocabulary::engineKeywords()} names is described here.
  */
 class GrammarVocabulary extends KeywordVocabularyDescriber
 {
     private KeywordVocabulary $vocab;
 
-    public function __construct(?KeywordVocabulary $vocab = null)
+    /** @var list<KeywordDescriptor> */
+    private array $baseKeywords;
+
+    /**
+     * @param  iterable<KeywordDescriptor>  $baseKeywords  base/standard keywords owned by another leaf (e.g. the
+     *                                                     json-reference `x-dereference`), unioned in at export
+     */
+    public function __construct(?KeywordVocabulary $vocab = null, iterable $baseKeywords = [])
     {
         $this->vocab = $vocab ?? KeywordVocabulary::shared();
+        $this->baseKeywords = is_array($baseKeywords) ? array_values($baseKeywords) : iterator_to_array($baseKeywords, false);
     }
 
     protected function descriptors(): iterable
@@ -42,7 +53,9 @@ class GrammarVocabulary extends KeywordVocabularyDescriber
             }
         }
 
-        yield from $this->engineAndBaseKeywords();
+        yield $this->maxDepthKeyword();
+
+        yield from $this->baseKeywords;
     }
 
     protected function keywordString(KeywordDescriptor $keyword): string
@@ -68,24 +81,15 @@ class GrammarVocabulary extends KeywordVocabularyDescriber
     }
 
     /**
-     * The keywords composition owns that no generation attribute emits: the engine read-side `max-depth`
-     * cap, and the base, unprefixed `x-dereference` dispatch handle.
-     *
-     * @return list<KeywordDescriptor>
+     * The engine read-side keyword composition owns that no generation attribute emits: the `max-depth`
+     * recursion cap.
      */
-    private function engineAndBaseKeywords(): array
+    private function maxDepthKeyword(): KeywordDescriptor
     {
-        return [
-            new KeywordDescriptor(
-                accessor: 'maxDepth',
-                source: ValueSource::Integer,
-                description: 'Caps the recursion depth of grammar expansion at this subtree root; the interpreter clamps the effective depth to the engine cap and demotes an expandable beat at the ceiling. Read-side only — no attribute emits it.',
-            ),
-            new KeywordDescriptor(
-                accessor: 'dereference',
-                source: ValueSource::Text,
-                description: 'Base-owned, unprefixed dispatch handle (like $ref): names the Dereferencer that resolves this node. Shared across engines; canonical home is the laravel-json-reference leaf.',
-            ),
-        ];
+        return new KeywordDescriptor(
+            accessor: 'maxDepth',
+            source: ValueSource::Integer,
+            description: 'Caps the recursion depth of grammar expansion at this subtree root; the interpreter clamps the effective depth to the engine cap and demotes an expandable beat at the ceiling. Read-side only — no attribute emits it.',
+        );
     }
 }
