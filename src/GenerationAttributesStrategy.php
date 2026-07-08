@@ -14,13 +14,13 @@ use Rushing\CompositionSpineData\Attributes\Pause;
 use Rushing\CompositionSpineData\Attributes\Polish;
 use Rushing\CompositionSpineData\Attributes\Prose;
 use Rushing\CompositionSpineData\Attributes\ProseRole;
-use Rushing\CompositionSpineData\Vocabulary\AttributeBinding;
-use Rushing\CompositionSpineData\Vocabulary\GenerationKeyword;
 use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
-use Rushing\CompositionSpineData\Vocabulary\ValueSource;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategyContext;
+use Rushing\LaravelDataSchemas\Vocabulary\AttributeBinding;
+use Rushing\LaravelDataSchemas\Vocabulary\KeywordDescriptor;
+use Rushing\LaravelDataSchemas\Vocabulary\ValueSource;
 
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,
@@ -78,7 +78,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
                     return $schema;
                 },
-                [new GenerationKeyword(
+                [new KeywordDescriptor(
                     accessor: 'beat',
                     source: ValueSource::Enum,
                     description: 'How the interpreter treats the beat at the frontier: expandable → one focused expansion call realizes its children; writable → the model writes the leaf directly.',
@@ -93,7 +93,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
                     return $schema;
                 },
-                [new GenerationKeyword(
+                [new KeywordDescriptor(
                     accessor: 'ground',
                     source: ValueSource::Union,
                     description: 'Fill this property from the Composition grounding snapshot: a source name selects a registered ground capability, or `true` uses the property name as the source.',
@@ -108,7 +108,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
                     return $schema;
                 },
-                [new GenerationKeyword(
+                [new KeywordDescriptor(
                     accessor: 'generate',
                     source: ValueSource::Union,
                     description: 'Generate this property when its beat is expanded: a handler name selects a registered generate capability, or `true` uses the profile default.',
@@ -127,14 +127,14 @@ class GenerationAttributesStrategy implements SchemaStrategy
                     return $schema;
                 },
                 [
-                    new GenerationKeyword(
+                    new KeywordDescriptor(
                         accessor: 'prose',
                         source: ValueSource::Enum,
                         description: 'The prose disposition of a grounding field — how its facts may be discussed in body prose (subject → write freely; render-only → do not name; nameable → may be named).',
                         sourceClass: ProseRole::class,
                         tsType: 'ProseRole',
                     ),
-                    new GenerationKeyword(
+                    new KeywordDescriptor(
                         accessor: 'proseNote',
                         source: ValueSource::Text,
                         description: 'An optional field-level prose instruction that accompanies the prose disposition.',
@@ -148,7 +148,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
                     return $schema;
                 },
-                [new GenerationKeyword(
+                [new KeywordDescriptor(
                     accessor: 'pause',
                     source: ValueSource::Boolean,
                     description: 'Marks the beat a pause checkpoint (HITL): the interpreter yields its cell for review and does not expand its children until approved.',
@@ -161,7 +161,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
                     return $schema;
                 },
-                [new GenerationKeyword(
+                [new KeywordDescriptor(
                     accessor: 'polish',
                     source: ValueSource::Boolean,
                     description: 'Whether the beat is eligible for auto-polish; `false` fences its cells out of the whole-composition polish orchestrator.',
@@ -174,7 +174,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
 
                     return $schema;
                 },
-                [new GenerationKeyword(
+                [new KeywordDescriptor(
                     accessor: 'cache',
                     source: ValueSource::Object_,
                     description: 'A caching policy for the beat generate/ground capability: `scope` (invocation → TTL-keyed; snapshot → frozen), optional `ttl`, and an optional grounding-key subset.',
