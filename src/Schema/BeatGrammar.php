@@ -7,6 +7,7 @@ use Rushing\CompositionSpineData\Attributes\Beat;
 use Rushing\CompositionSpineData\Attributes\Generate;
 use Rushing\CompositionSpineData\Attributes\Ground;
 use Rushing\CompositionSpineData\Attributes\Prose;
+use Rushing\CompositionSpineData\GenerationAttributesStrategy;
 use Rushing\CompositionSpineData\KeywordVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 
@@ -99,9 +100,7 @@ class BeatGrammar
 
         $vocab = KeywordVocabulary::shared();
 
-        $beatMode = $this->beatMode($reflection);
-        $generate = $reflection->getAttributes(Generate::class) !== [];
-        $ground = $reflection->getAttributes(Ground::class) !== [];
+        $classKeywords = $this->classLevelKeywords($reflection, $vocab);
         [$proseField, $proseRole] = $this->proseField($reflection);
 
         $leafProperties = $this->stripExamples(
@@ -112,16 +111,7 @@ class BeatGrammar
         foreach ($this->beats as $beat) {
             $decorated = $this->decorate($leafProperties, $proseField, $proseRole, $beat['prose']);
 
-            $node = ['type' => 'object'];
-            if ($beatMode !== null) {
-                $node[$vocab->beat()] = $beatMode;
-            }
-            if ($generate) {
-                $node[$vocab->generate()] = true;
-            }
-            if ($ground) {
-                $node[$vocab->ground()] = true;
-            }
+            $node = ['type' => 'object'] + $classKeywords;
             $node['description'] = $beat['description'];
             // Strict structured-output providers (OpenAI et al.) require every object to set
             // additionalProperties:false and list every property in `required`; the engine forwards
@@ -140,11 +130,59 @@ class BeatGrammar
         ];
     }
 
-    private function beatMode(ReflectionClass $reflection): ?string
+    /**
+     * The invariant beat-node keywords the leaf declares at CLASS level, projected through the SAME
+     * {@see GenerationAttributesStrategy} bindings the property level uses — so every generation
+     * attribute is single-sourced. `beat`/`generate`/`ground` are emitted first, in their historical
+     * order (the fixture-pinned wrapper shape), through their own bindings' emit closures; every OTHER
+     * class-targetable attribute (`#[Pause]`, `#[Polish]`, `#[Cache]`, `#[Repeat]`, `#[MaxDepth]`) then
+     * projects through its binding too. Before this, those trailing attributes were silently dropped at
+     * class level — declared with `TARGET_CLASS`, wired for properties, but never read off the class here.
+     *
+     * @return array<string, mixed>
+     */
+    private function classLevelKeywords(ReflectionClass $reflection, KeywordVocabulary $vocab): array
     {
-        $attributes = $reflection->getAttributes(Beat::class);
+        $bindings = [];
+        foreach (GenerationAttributesStrategy::bindings() as $binding) {
+            $bindings[$binding->attributeClass] = $binding;
+        }
 
-        return $attributes === [] ? null : $attributes[0]->newInstance()->kind->value;
+        $node = [];
+
+        // Historical emission order first (beat, generate, ground) — through the bindings' own emit so
+        // values stay single-sourced with the property path.
+        $ordered = [Beat::class, Generate::class, Ground::class];
+        foreach ($ordered as $class) {
+            if (($attr = $this->classAttribute($reflection, $class)) !== null && isset($bindings[$class])) {
+                $node = ($bindings[$class]->emit)($attr, $vocab, $node);
+            }
+        }
+
+        // Every remaining class-targetable generation attribute. Prose is property-only (it identifies
+        // the leaf's prose field, handled in decorate()), so it is skipped here.
+        foreach ($bindings as $class => $binding) {
+            if (in_array($class, [...$ordered, Prose::class], true)) {
+                continue;
+            }
+            if (($attr = $this->classAttribute($reflection, $class)) !== null) {
+                $node = ($binding->emit)($attr, $vocab, $node);
+            }
+        }
+
+        return $node;
+    }
+
+    /**
+     * The first instance of `$attribute` declared at CLASS level, or null.
+     *
+     * @param  class-string  $attribute
+     */
+    private function classAttribute(ReflectionClass $reflection, string $attribute): ?object
+    {
+        $attributes = $reflection->getAttributes($attribute);
+
+        return $attributes === [] ? null : $attributes[0]->newInstance();
     }
 
     /**

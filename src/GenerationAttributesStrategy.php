@@ -10,6 +10,7 @@ use Rushing\CompositionSpineData\Attributes\Cache;
 use Rushing\CompositionSpineData\Attributes\EmbedPalette;
 use Rushing\CompositionSpineData\Attributes\Generate;
 use Rushing\CompositionSpineData\Attributes\Ground;
+use Rushing\CompositionSpineData\Attributes\MaxDepth;
 use Rushing\CompositionSpineData\Attributes\Pause;
 use Rushing\CompositionSpineData\Attributes\Polish;
 use Rushing\CompositionSpineData\Attributes\Prose;
@@ -25,8 +26,9 @@ use Rushing\LaravelDataSchemas\Vocabulary\ValueSource;
 
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,
- * `#[Generate]`, `#[Prose]`, `#[Pause]`) onto a property schema as the
- * `x-beat`/`x-ground`/`x-generate`/`x-prose`/`x-pause` vendor keywords. The
+ * `#[Generate]`, `#[Prose]`, `#[Pause]`, `#[Polish]`, `#[Cache]`, `#[Repeat]`,
+ * `#[MaxDepth]`) onto a property schema as the corresponding `x-swc-*` vendor keywords
+ * ({@see self::bindings()} is the single declaration site). The
  * interpreter reads these keywords — never the PHP attributes — so any schema
  * origin (local PHP, future remote codegen) converges on one read path.
  * `forLlmStrict` strips them, so they never reach the model-facing contract.
@@ -196,6 +198,19 @@ class GenerationAttributesStrategy implements SchemaStrategy
                     description: 'Reprise a named sibling beat instead of generating fresh: a bare string reprises it verbatim; a `{of, vary}` object revises the source to satisfy `vary` while preserving its structure and grounding tokens.',
                     sourceClass: Repeat::class,
                     sourceMethod: 'keyword',
+                )],
+            ),
+            new AttributeBinding(
+                MaxDepth::class,
+                function (MaxDepth $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->maxDepth()] = $attr->depth;
+
+                    return $schema;
+                },
+                [new KeywordDescriptor(
+                    accessor: 'maxDepth',
+                    source: ValueSource::Integer,
+                    description: 'Caps the recursion depth of grammar expansion at this subtree root; the interpreter clamps the effective depth to the engine cap and demotes an expandable beat at the ceiling.',
                 )],
             ),
         ];
