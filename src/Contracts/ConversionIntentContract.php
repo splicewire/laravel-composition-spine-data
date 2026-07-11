@@ -4,9 +4,9 @@ namespace Rushing\CompositionSpineData\Contracts;
 
 /**
  * The conversion direction an angle leads with. The app supplies the concrete vocabulary (a backed
- * enum). Beyond its string identity, an intent carries a profile-independent statement of the call to
- * action it leads with; a generative profile clarifies that base guidance into its own concrete
- * affordances via `realizeIntentCta()`.
+ * enum). Beyond its string identity, an intent carries a host-independent statement of the call to
+ * action it leads with; the host-side shape→beat-guidance stitcher reads {@see self::primaryCtaGuidance()}
+ * when it composes the primary call to action, so the concrete CTA wording stays owned by the host enum.
  */
 interface ConversionIntentContract
 {
@@ -16,8 +16,8 @@ interface ConversionIntentContract
     public function value(): string;
 
     /**
-     * Profile-independent guidance for the primary call to action this intent leads with. The active
-     * profile may pass this through unchanged or override it with profile-specific phrasing.
+     * Host-owned guidance for the primary call to action this intent leads with. The host-side stitcher
+     * reads it verbatim; a host may pass it through unchanged or phrase it however its domain prefers.
      */
     public function primaryCtaGuidance(): string;
 }

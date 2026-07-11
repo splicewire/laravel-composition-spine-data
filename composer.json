@@ -19,6 +19,12 @@
             "Rushing\\CompositionSpineData\\Tests\\": "tests/"
         }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/stephenr85/laravel-data-schemas.git"
+        }
+    ],
     "extra": {
         "laravel": {
             "providers": [
@@ -27,14 +33,28 @@
         },
         "branch-alias": {
             "dev-main": "1.0.x-dev"
+        },
+        "merge-plugin": {
+            "include": ["composer.local.json"]
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "wikimedia/composer-merge-plugin": true
+        },
+        "sort-packages": true
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "pint": "@php -d memory_limit=512M vendor/bin/pint"
+        "pint": "@php -d memory_limit=512M vendor/bin/pint",
+        "test": "@php vendor/bin/pest"
     },
     "require-dev": {
-        "laravel/pint": "^1.0"
+        "laravel/pint": "^1.0",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.0",
+        "wikimedia/composer-merge-plugin": "^2.1"
     }
 }

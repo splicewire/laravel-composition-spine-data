@@ -21,6 +21,11 @@ class ComposedShape
      * @param  array<int, string>  $sections  ordered body section plan
      * @param  array<int, GroundingCategoryContract>  $groundingEmphasis  grounding categories, most-emphasised first
      * @param  array<int, ComponentIntentContract>  $encouragedComponents  abstract component intents
+     * @param  bool  $neutralBase  true when the composer resolved to the neutral fallback contributor
+     *                             alone (no requested angle matched). Recorded here because the fallback
+     *                             is not empty — it carries sections and a prompt fragment — so
+     *                             neutrality cannot be derived from emptiness; consumers (e.g. a
+     *                             shape→beat-guidance stitcher) read this flag to emit no guidance.
      */
     public function __construct(
         public array $angles,
@@ -30,6 +35,7 @@ class ComposedShape
         public array $encouragedComponents,
         public string $promptFragment,
         public string $titleGuidance = '',
+        public bool $neutralBase = false,
     ) {}
 
     public function primaryAngle(): AngleContract

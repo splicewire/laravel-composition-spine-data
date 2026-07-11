@@ -44,8 +44,9 @@ interface AngleContributor
     public function groundingEmphasis(): array;
 
     /**
-     * Abstract component intents this angle encourages the body to use. Realized to concrete embed
-     * type names by the active generative profile when stitching prompts.
+     * Abstract component intents this angle encourages the body to use. Each intent owns its own
+     * human-readable prompt label ({@see ComponentIntentContract::label()}), which the host-side
+     * shape→beat-guidance stitcher reads when it lists the encouraged components.
      *
      * @return array<int, ComponentIntentContract>
      */

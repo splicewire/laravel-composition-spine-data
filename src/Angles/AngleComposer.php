@@ -67,7 +67,14 @@ class AngleComposer
             $contributors[$this->fallbackKey] = $this->registry[$this->fallbackKey];
         }
 
-        return $this->merge(array_values($contributors));
+        // The shape is neutral when it resolved to the neutral fallback contributor ALONE — whether
+        // because no requested angle matched the registry, or because the caller requested the fallback
+        // angle explicitly. Either way the piece carries no real editorial angle. Recorded here because
+        // the fallback contributor is not empty (it carries sections and a prompt fragment), so
+        // neutrality cannot be derived downstream from emptiness — it must be stamped at composition time.
+        $neutralBase = array_keys($contributors) === [$this->fallbackKey];
+
+        return $this->merge(array_values($contributors), $neutralBase);
     }
 
     private function resolveFallback(): AngleContributor
@@ -85,8 +92,9 @@ class AngleComposer
 
     /**
      * @param  array<int, AngleContributor>  $contributors  primary first
+     * @param  bool  $neutralBase  true when $contributors is the neutral fallback alone
      */
-    private function merge(array $contributors): ComposedShape
+    private function merge(array $contributors, bool $neutralBase = false): ComposedShape
     {
         $orderedAngles = [];
         $sections = [];
@@ -114,6 +122,7 @@ class AngleComposer
             encouragedComponents: $components,
             promptFragment: implode("\n\n", $fragments),
             titleGuidance: trim($contributors[0]->titleGuidance()),
+            neutralBase: $neutralBase,
         );
     }
 
