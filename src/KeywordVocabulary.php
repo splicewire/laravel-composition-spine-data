@@ -137,6 +137,11 @@ class KeywordVocabulary
         return $this->engine('prose-note');
     }
 
+    public function repeat(): string
+    {
+        return $this->engine('repeat');
+    }
+
     /**
      * The reserved, UNPREFIXED dereference dispatch keyword (base/standard vocabulary). Named here so the
      * read-side verb has a home from day one; its handler dispatch is wired by the dereference-seam issue.

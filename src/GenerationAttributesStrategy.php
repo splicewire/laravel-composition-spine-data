@@ -14,6 +14,7 @@ use Rushing\CompositionSpineData\Attributes\Pause;
 use Rushing\CompositionSpineData\Attributes\Polish;
 use Rushing\CompositionSpineData\Attributes\Prose;
 use Rushing\CompositionSpineData\Attributes\ProseRole;
+use Rushing\CompositionSpineData\Attributes\Repeat;
 use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
@@ -180,6 +181,21 @@ class GenerationAttributesStrategy implements SchemaStrategy
                     description: 'A caching policy for the beat generate/ground capability: `scope` (invocation → TTL-keyed; snapshot → frozen), optional `ttl`, and an optional grounding-key subset.',
                     sourceClass: Cache::class,
                     tsType: 'GenerationCachePolicy',
+                )],
+            ),
+            new AttributeBinding(
+                Repeat::class,
+                function (Repeat $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->repeat()] = $attr->keyword();
+
+                    return $schema;
+                },
+                [new KeywordDescriptor(
+                    accessor: 'repeat',
+                    source: ValueSource::Union,
+                    description: 'Reprise a named sibling beat instead of generating fresh: a bare string reprises it verbatim; a `{of, vary}` object revises the source to satisfy `vary` while preserving its structure and grounding tokens.',
+                    sourceClass: Repeat::class,
+                    sourceMethod: 'keyword',
                 )],
             ),
         ];
