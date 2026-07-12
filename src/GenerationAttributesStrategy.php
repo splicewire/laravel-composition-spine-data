@@ -10,12 +10,14 @@ use Rushing\CompositionSpineData\Attributes\Cache;
 use Rushing\CompositionSpineData\Attributes\EmbedPalette;
 use Rushing\CompositionSpineData\Attributes\Generate;
 use Rushing\CompositionSpineData\Attributes\Ground;
+use Rushing\CompositionSpineData\Attributes\Grounding;
 use Rushing\CompositionSpineData\Attributes\MaxDepth;
 use Rushing\CompositionSpineData\Attributes\Pause;
 use Rushing\CompositionSpineData\Attributes\Polish;
 use Rushing\CompositionSpineData\Attributes\Prose;
 use Rushing\CompositionSpineData\Attributes\ProseRole;
 use Rushing\CompositionSpineData\Attributes\Repeat;
+use Rushing\CompositionSpineData\Schema\BeatGrammar;
 use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
@@ -71,6 +73,47 @@ class GenerationAttributesStrategy implements SchemaStrategy
      *
      * @return list<AttributeBinding>
      */
+    /**
+     * The generation keywords a class declares at CLASS level, projected through the SAME bindings
+     * the property path uses — single-sourced, `beat`/`generate`/`ground` first in their historical
+     * order, every other class-targetable attribute after (Prose is property-only and skipped).
+     * Consumed by {@see BeatGrammar} for beat nodes and by the
+     * engine's GenerationGrammar for the profile grammar ROOT (grounding-fusion issue 03).
+     *
+     * @return array<string, mixed>
+     */
+    public static function classKeywords(ReflectionClass $reflection, ?KeywordVocabulary $vocab = null): array
+    {
+        $vocab ??= KeywordVocabulary::shared();
+
+        $bindings = [];
+        foreach (self::bindings() as $binding) {
+            $bindings[$binding->attributeClass] = $binding;
+        }
+
+        $node = [];
+
+        $ordered = [Beat::class, Generate::class, Ground::class];
+        foreach ($ordered as $class) {
+            $attributes = $reflection->getAttributes($class);
+            if ($attributes !== [] && isset($bindings[$class])) {
+                $node = ($bindings[$class]->emit)($attributes[0]->newInstance(), $vocab, $node);
+            }
+        }
+
+        foreach ($bindings as $class => $binding) {
+            if (in_array($class, [...$ordered, Prose::class], true)) {
+                continue;
+            }
+            $attributes = $reflection->getAttributes($class);
+            if ($attributes !== []) {
+                $node = ($binding->emit)($attributes[0]->newInstance(), $vocab, $node);
+            }
+        }
+
+        return $node;
+    }
+
     public static function bindings(): array
     {
         return [
@@ -101,6 +144,21 @@ class GenerationAttributesStrategy implements SchemaStrategy
                     source: ValueSource::Union,
                     description: 'Fill this property from the Composition grounding snapshot: a source name selects a registered ground capability, or `true` uses the property name as the source.',
                     sourceClass: Ground::class,
+                    sourceMethod: 'keyword',
+                )],
+            ),
+            new AttributeBinding(
+                Grounding::class,
+                function (Grounding $attr, KeywordVocabulary $vocab, array $schema): array {
+                    $schema[$vocab->grounding()] = $attr->keyword();
+
+                    return $schema;
+                },
+                [new KeywordDescriptor(
+                    accessor: 'grounding',
+                    source: ValueSource::Union,
+                    description: 'The node\'s declared grounding SOURCES (sourcing, beside x-ground\'s routing): an ordered typed source list (context_scope, webhook, facts) feeding this subtree\'s pool, or `{fusion, sources}` naming a non-default fusion strategy. Request sources join after the declared set; token collisions resolve last-write-wins in list order.',
+                    sourceClass: Grounding::class,
                     sourceMethod: 'keyword',
                 )],
             ),

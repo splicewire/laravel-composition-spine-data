@@ -131,46 +131,15 @@ class BeatGrammar
     }
 
     /**
-     * The invariant beat-node keywords the leaf declares at CLASS level, projected through the SAME
-     * {@see GenerationAttributesStrategy} bindings the property level uses — so every generation
-     * attribute is single-sourced. `beat`/`generate`/`ground` are emitted first, in their historical
-     * order (the fixture-pinned wrapper shape), through their own bindings' emit closures; every OTHER
-     * class-targetable attribute (`#[Pause]`, `#[Polish]`, `#[Cache]`, `#[Repeat]`, `#[MaxDepth]`) then
-     * projects through its binding too. Before this, those trailing attributes were silently dropped at
-     * class level — declared with `TARGET_CLASS`, wired for properties, but never read off the class here.
+     * The invariant beat-node keywords the leaf declares at CLASS level — delegated to the shared
+     * {@see GenerationAttributesStrategy::classKeywords()} so BeatGrammar nodes, the engine's
+     * profile-grammar root, and the property path all project through one binding set.
      *
      * @return array<string, mixed>
      */
     private function classLevelKeywords(ReflectionClass $reflection, KeywordVocabulary $vocab): array
     {
-        $bindings = [];
-        foreach (GenerationAttributesStrategy::bindings() as $binding) {
-            $bindings[$binding->attributeClass] = $binding;
-        }
-
-        $node = [];
-
-        // Historical emission order first (beat, generate, ground) — through the bindings' own emit so
-        // values stay single-sourced with the property path.
-        $ordered = [Beat::class, Generate::class, Ground::class];
-        foreach ($ordered as $class) {
-            if (($attr = $this->classAttribute($reflection, $class)) !== null && isset($bindings[$class])) {
-                $node = ($bindings[$class]->emit)($attr, $vocab, $node);
-            }
-        }
-
-        // Every remaining class-targetable generation attribute. Prose is property-only (it identifies
-        // the leaf's prose field, handled in decorate()), so it is skipped here.
-        foreach ($bindings as $class => $binding) {
-            if (in_array($class, [...$ordered, Prose::class], true)) {
-                continue;
-            }
-            if (($attr = $this->classAttribute($reflection, $class)) !== null) {
-                $node = ($binding->emit)($attr, $vocab, $node);
-            }
-        }
-
-        return $node;
+        return GenerationAttributesStrategy::classKeywords($reflection, $vocab);
     }
 
     /**

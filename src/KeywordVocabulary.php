@@ -112,6 +112,11 @@ class KeywordVocabulary
         return $this->engine('ground');
     }
 
+    public function grounding(): string
+    {
+        return $this->engine('grounding');
+    }
+
     public function maxDepth(): string
     {
         return $this->engine('max-depth');
