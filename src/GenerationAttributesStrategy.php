@@ -157,7 +157,7 @@ class GenerationAttributesStrategy implements SchemaStrategy
                 [new KeywordDescriptor(
                     accessor: 'grounding',
                     source: ValueSource::Union,
-                    description: 'The node\'s declared grounding SOURCES (sourcing, beside x-ground\'s routing): an ordered typed source list (context_scope, webhook, facts) feeding this subtree\'s pool, or `{fusion, sources}` naming a non-default fusion strategy. Request sources join after the declared set; token collisions resolve last-write-wins in list order.',
+                    description: 'The node\'s declared grounding SOURCES (sourcing, beside x-ground\'s routing): an ordered typed source list (context_scope, webhook, facts) feeding this subtree\'s pool, or an object form carrying `sources` plus `fusion` (a non-default fusion strategy) and/or `only` (a PIN filter naming the grounding GROUPS this beat\'s subtree may draw from EXCLUSIVELY — hard isolation, narrowed by the drain before expansion). Request sources join after the declared set; token collisions resolve last-write-wins in list order.',
                     sourceClass: Grounding::class,
                     sourceMethod: 'keyword',
                 )],

@@ -27,6 +27,22 @@ class NamedFusionFixture extends Data
     ) {}
 }
 
+#[Grounding(sources: [['context_scope' => 'compliance']], only: ['compliance'])]
+class PinnedGroundingFixture extends Data
+{
+    public function __construct(
+        public string $body = '',
+    ) {}
+}
+
+#[Grounding(sources: [['facts' => ['notes' => []]]], fusion: 'reconcile', only: ['compliance', 'legal'])]
+class PinnedFusionFixture extends Data
+{
+    public function __construct(
+        public string $body = '',
+    ) {}
+}
+
 class SupplementGroundingFixture extends Data
 {
     public function __construct(
@@ -52,6 +68,39 @@ it('projects the {fusion, sources} object form when a strategy is named — sing
     expect($keywords[$vocab->grounding()])->toBe(
         (new Grounding(sources: [['facts' => ['notes' => []]]], fusion: 'reconcile'))->keyword(),
     )->and($keywords[$vocab->grounding()]['fusion'])->toBe('reconcile');
+});
+
+it('projects the {only, sources} object form when a beat pins named groups — single-sourced through keyword()', function () {
+    $vocab = KeywordVocabulary::shared();
+    $keywords = GenerationAttributesStrategy::classKeywords(new ReflectionClass(PinnedGroundingFixture::class));
+
+    expect($keywords[$vocab->grounding()])->toBe([
+        'only' => ['compliance'],
+        'sources' => [['context_scope' => 'compliance']],
+    ])->and($keywords[$vocab->grounding()])->toBe(
+        (new Grounding(sources: [['context_scope' => 'compliance']], only: ['compliance']))->keyword(),
+    );
+});
+
+it('projects the {fusion, only, sources} object form when a beat both pins and names a strategy', function () {
+    $vocab = KeywordVocabulary::shared();
+    $keywords = GenerationAttributesStrategy::classKeywords(new ReflectionClass(PinnedFusionFixture::class));
+
+    expect($keywords[$vocab->grounding()])->toBe([
+        'fusion' => 'reconcile',
+        'only' => ['compliance', 'legal'],
+        'sources' => [['facts' => ['notes' => []]]],
+    ]);
+});
+
+it('keeps the bare source list when neither only nor fusion is declared — unchanged', function () {
+    expect((new Grounding(sources: [['context_scope' => 'brand-voice']]))->keyword())
+        ->toBe([['context_scope' => 'brand-voice']]);
+});
+
+it('keeps the {fusion, sources} object form (no only key) when only fusion is declared — unchanged', function () {
+    expect((new Grounding(sources: [['facts' => ['x' => 1]]], fusion: 'reconcile'))->keyword())
+        ->toBe(['fusion' => 'reconcile', 'sources' => [['facts' => ['x' => 1]]]]);
 });
 
 it('projects a property-level Grounding supplement onto the field schema', function () {
