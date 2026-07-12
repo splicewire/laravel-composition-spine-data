@@ -11,12 +11,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Rushing\\CompositionSpineData\\": "src/"
+            "Splicewire\\CompositionSpineData\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rushing\\CompositionSpineData\\Tests\\": "tests/"
+            "Splicewire\\CompositionSpineData\\Tests\\": "tests/"
         }
     },
     "repositories": [
@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rushing\\CompositionSpineData\\CompositionSpineDataServiceProvider"
+                "Splicewire\\CompositionSpineData\\CompositionSpineDataServiceProvider"
             ]
         },
         "branch-alias": {

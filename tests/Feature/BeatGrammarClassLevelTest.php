@@ -1,9 +1,9 @@
 <?php
 
-use Rushing\CompositionSpineData\Attributes\Cache;
-use Rushing\CompositionSpineData\KeywordVocabulary;
-use Rushing\CompositionSpineData\Schema\BeatGrammar;
-use Rushing\CompositionSpineData\Tests\Stubs\ClassLevelBeatData;
+use Splicewire\CompositionSpineData\Attributes\Cache;
+use Splicewire\CompositionSpineData\KeywordVocabulary;
+use Splicewire\CompositionSpineData\Schema\BeatGrammar;
+use Splicewire\CompositionSpineData\Tests\Stubs\ClassLevelBeatData;
 
 /**
  * Issue 03 (Bug A) — BeatGrammar used to read only class-level Beat/Generate/Ground and silently

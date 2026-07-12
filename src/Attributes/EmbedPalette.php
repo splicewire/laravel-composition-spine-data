@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Attributes;
+namespace Splicewire\CompositionSpineData\Attributes;
 
 use Attribute;
-use Rushing\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Spatie\LaravelData\Data;
 
 /**

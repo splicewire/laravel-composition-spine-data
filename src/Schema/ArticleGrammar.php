@@ -1,10 +1,10 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Schema;
+namespace Splicewire\CompositionSpineData\Schema;
 
 use ReflectionClass;
-use Rushing\CompositionEngine\Generation\TreeDrain;
-use Rushing\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\CompositionEngine\Generation\TreeDrain;
+use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 
 /**

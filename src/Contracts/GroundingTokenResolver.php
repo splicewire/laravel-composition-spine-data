@@ -1,6 +1,6 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Contracts;
+namespace Splicewire\CompositionSpineData\Contracts;
 
 /**
  * The grounding trust boundary as a contract. A generation model may write *prose* but must

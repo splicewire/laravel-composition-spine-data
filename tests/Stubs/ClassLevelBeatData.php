@@ -1,17 +1,17 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\CompositionSpineData\Tests\Stubs;
 
-use Rushing\CompositionSpineData\Attributes\Beat;
-use Rushing\CompositionSpineData\Attributes\BeatKind;
-use Rushing\CompositionSpineData\Attributes\Cache;
-use Rushing\CompositionSpineData\Attributes\Generate;
-use Rushing\CompositionSpineData\Attributes\Ground;
-use Rushing\CompositionSpineData\Attributes\MaxDepth;
-use Rushing\CompositionSpineData\Attributes\Pause;
-use Rushing\CompositionSpineData\Attributes\Polish;
-use Rushing\CompositionSpineData\Attributes\Prose;
-use Rushing\CompositionSpineData\Attributes\ProseRole;
+use Splicewire\CompositionSpineData\Attributes\Beat;
+use Splicewire\CompositionSpineData\Attributes\BeatKind;
+use Splicewire\CompositionSpineData\Attributes\Cache;
+use Splicewire\CompositionSpineData\Attributes\Generate;
+use Splicewire\CompositionSpineData\Attributes\Ground;
+use Splicewire\CompositionSpineData\Attributes\MaxDepth;
+use Splicewire\CompositionSpineData\Attributes\Pause;
+use Splicewire\CompositionSpineData\Attributes\Polish;
+use Splicewire\CompositionSpineData\Attributes\Prose;
+use Splicewire\CompositionSpineData\Attributes\ProseRole;
 use Spatie\LaravelData\Data;
 
 /**

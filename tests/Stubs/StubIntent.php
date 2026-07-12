@@ -1,8 +1,8 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\CompositionSpineData\Tests\Stubs;
 
-use Rushing\CompositionSpineData\Contracts\ConversionIntentContract;
+use Splicewire\CompositionSpineData\Contracts\ConversionIntentContract;
 
 /**
  * A stand-in conversion intent that owns its own CTA wording, exercising the host-owned

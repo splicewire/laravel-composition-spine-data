@@ -1,6 +1,6 @@
 <?php
 
-namespace Rushing\CompositionSpineData;
+namespace Splicewire\CompositionSpineData;
 
 use Illuminate\Support\ServiceProvider;
 

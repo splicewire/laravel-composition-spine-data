@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Vocabulary;
+namespace Splicewire\CompositionSpineData\Vocabulary;
 
-use Rushing\CompositionSpineData\GenerationAttributesStrategy;
-use Rushing\CompositionSpineData\KeywordVocabulary;
+use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\CompositionSpineData\KeywordVocabulary;
 use Rushing\LaravelDataSchemas\Vocabulary\KeywordDescriptor;
 use Rushing\LaravelDataSchemas\Vocabulary\KeywordVocabularyDescriber;
 

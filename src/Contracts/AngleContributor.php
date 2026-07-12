@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Contracts;
+namespace Splicewire\CompositionSpineData\Contracts;
 
-use Rushing\CompositionSpineData\Angles\AngleComposer;
-use Rushing\CompositionSpineData\Angles\ComposedShape;
+use Splicewire\CompositionSpineData\Angles\AngleComposer;
+use Splicewire\CompositionSpineData\Angles\ComposedShape;
 
 /**
  * One editorial angle's self-contained contribution to a piece of content's shape. The

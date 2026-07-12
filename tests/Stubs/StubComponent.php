@@ -1,8 +1,8 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\CompositionSpineData\Tests\Stubs;
 
-use Rushing\CompositionSpineData\Contracts\ComponentIntentContract;
+use Splicewire\CompositionSpineData\Contracts\ComponentIntentContract;
 
 /**
  * A stand-in component intent that owns its own human label, exercising the host-owned

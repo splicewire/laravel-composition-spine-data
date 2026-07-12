@@ -1,24 +1,24 @@
 <?php
 
-namespace Rushing\CompositionSpineData;
+namespace Splicewire\CompositionSpineData;
 
 use ReflectionClass;
 use ReflectionProperty;
-use Rushing\CompositionSpineData\Attributes\Beat;
-use Rushing\CompositionSpineData\Attributes\BeatKind;
-use Rushing\CompositionSpineData\Attributes\Cache;
-use Rushing\CompositionSpineData\Attributes\EmbedPalette;
-use Rushing\CompositionSpineData\Attributes\Generate;
-use Rushing\CompositionSpineData\Attributes\Ground;
-use Rushing\CompositionSpineData\Attributes\Grounding;
-use Rushing\CompositionSpineData\Attributes\MaxDepth;
-use Rushing\CompositionSpineData\Attributes\Pause;
-use Rushing\CompositionSpineData\Attributes\Polish;
-use Rushing\CompositionSpineData\Attributes\Prose;
-use Rushing\CompositionSpineData\Attributes\ProseRole;
-use Rushing\CompositionSpineData\Attributes\Repeat;
-use Rushing\CompositionSpineData\Schema\BeatGrammar;
-use Rushing\CompositionSpineData\Vocabulary\GrammarVocabulary;
+use Splicewire\CompositionSpineData\Attributes\Beat;
+use Splicewire\CompositionSpineData\Attributes\BeatKind;
+use Splicewire\CompositionSpineData\Attributes\Cache;
+use Splicewire\CompositionSpineData\Attributes\EmbedPalette;
+use Splicewire\CompositionSpineData\Attributes\Generate;
+use Splicewire\CompositionSpineData\Attributes\Ground;
+use Splicewire\CompositionSpineData\Attributes\Grounding;
+use Splicewire\CompositionSpineData\Attributes\MaxDepth;
+use Splicewire\CompositionSpineData\Attributes\Pause;
+use Splicewire\CompositionSpineData\Attributes\Polish;
+use Splicewire\CompositionSpineData\Attributes\Prose;
+use Splicewire\CompositionSpineData\Attributes\ProseRole;
+use Splicewire\CompositionSpineData\Attributes\Repeat;
+use Splicewire\CompositionSpineData\Schema\BeatGrammar;
+use Splicewire\CompositionSpineData\Vocabulary\GrammarVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
 use Rushing\LaravelDataSchemas\Strategies\SchemaStrategyContext;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Attributes;
+namespace Splicewire\CompositionSpineData\Attributes;
 
 use Attribute;
-use Rushing\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 
 /**
  * Fences a Beat (property or class) out of auto-polish (issue 20): with `auto: false` the whole-composition

@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Attributes;
+namespace Splicewire\CompositionSpineData\Attributes;
 
 use Attribute;
-use Rushing\CompositionSpineData\Schema\BeatGrammar;
+use Splicewire\CompositionSpineData\Schema\BeatGrammar;
 
 /**
  * Marks a property the engine fills from the Composition's grounding snapshot

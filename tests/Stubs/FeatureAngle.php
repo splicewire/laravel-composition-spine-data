@@ -1,8 +1,8 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\CompositionSpineData\Tests\Stubs;
 
-use Rushing\CompositionSpineData\Contracts\AngleContributor;
+use Splicewire\CompositionSpineData\Contracts\AngleContributor;
 
 /**
  * A real (non-neutral) angle contributor: it carries an intent, sections, an encouraged component and a

@@ -1,8 +1,8 @@
 <?php
 
-use Rushing\CompositionSpineData\Attributes\Grounding;
-use Rushing\CompositionSpineData\GenerationAttributesStrategy;
-use Rushing\CompositionSpineData\KeywordVocabulary;
+use Splicewire\CompositionSpineData\Attributes\Grounding;
+use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\CompositionSpineData\KeywordVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 use Spatie\LaravelData\Data;
 

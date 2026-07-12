@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Tests;
+namespace Splicewire\CompositionSpineData\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Rushing\CompositionSpineData\CompositionSpineDataServiceProvider;
+use Splicewire\CompositionSpineData\CompositionSpineDataServiceProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
 
 abstract class TestCase extends Orchestra

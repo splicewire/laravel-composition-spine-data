@@ -1,6 +1,6 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Contracts;
+namespace Splicewire\CompositionSpineData\Contracts;
 
 /**
  * A grounding category's identity. The app supplies the concrete vocabulary (a backed enum whose cases

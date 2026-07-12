@@ -1,6 +1,6 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Attributes;
+namespace Splicewire\CompositionSpineData\Attributes;
 
 /**
  * How the interpreter treats a Beat when it reaches the frontier.

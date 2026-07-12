@@ -1,6 +1,6 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Contracts;
+namespace Splicewire\CompositionSpineData\Contracts;
 
 /**
  * The conversion direction an angle leads with. The app supplies the concrete vocabulary (a backed

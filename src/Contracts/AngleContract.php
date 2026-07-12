@@ -1,8 +1,8 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Contracts;
+namespace Splicewire\CompositionSpineData\Contracts;
 
-use Rushing\CompositionSpineData\Angles\ComposedShape;
+use Splicewire\CompositionSpineData\Angles\ComposedShape;
 
 /**
  * An editorial angle's identity. The app supplies the concrete vocabulary (a backed enum whose cases

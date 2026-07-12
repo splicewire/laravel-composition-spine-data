@@ -1,14 +1,14 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Schema;
+namespace Splicewire\CompositionSpineData\Schema;
 
 use ReflectionClass;
-use Rushing\CompositionSpineData\Attributes\Beat;
-use Rushing\CompositionSpineData\Attributes\Generate;
-use Rushing\CompositionSpineData\Attributes\Ground;
-use Rushing\CompositionSpineData\Attributes\Prose;
-use Rushing\CompositionSpineData\GenerationAttributesStrategy;
-use Rushing\CompositionSpineData\KeywordVocabulary;
+use Splicewire\CompositionSpineData\Attributes\Beat;
+use Splicewire\CompositionSpineData\Attributes\Generate;
+use Splicewire\CompositionSpineData\Attributes\Ground;
+use Splicewire\CompositionSpineData\Attributes\Prose;
+use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\CompositionSpineData\KeywordVocabulary;
 use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
 
 /**

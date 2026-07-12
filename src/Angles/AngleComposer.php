@@ -1,10 +1,10 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Angles;
+namespace Splicewire\CompositionSpineData\Angles;
 
 use RuntimeException;
-use Rushing\CompositionSpineData\Contracts\AngleContract;
-use Rushing\CompositionSpineData\Contracts\AngleContributor;
+use Splicewire\CompositionSpineData\Contracts\AngleContract;
+use Splicewire\CompositionSpineData\Contracts\AngleContributor;
 
 /**
  * Merges an ordered set of angles into one {@see ComposedShape}. The caller's ordered picks are honoured

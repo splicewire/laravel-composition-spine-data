@@ -1,6 +1,6 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Contracts;
+namespace Splicewire\CompositionSpineData\Contracts;
 
 /**
  * An abstract component an angle encourages the body to use (e.g. "destination CTA", "where-to-watch",

@@ -1,9 +1,9 @@
 <?php
 
-namespace Rushing\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\CompositionSpineData\Tests\Stubs;
 
-use Rushing\CompositionSpineData\Angles\AngleComposer;
-use Rushing\CompositionSpineData\Contracts\AngleContributor;
+use Splicewire\CompositionSpineData\Angles\AngleComposer;
+use Splicewire\CompositionSpineData\Contracts\AngleContributor;
 
 /**
  * The neutral fallback contributor. Like a host's General base it is NOT empty — it carries sections and
