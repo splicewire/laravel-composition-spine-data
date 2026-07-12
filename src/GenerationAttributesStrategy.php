@@ -65,15 +65,6 @@ class GenerationAttributesStrategy implements SchemaStrategy
     }
 
     /**
-     * The single declared attribute↔keyword bindings, consumed by both {@see apply()} (emit) and
-     * {@see GrammarVocabulary} (describe). Each binding names the
-     * attribute, the closure that stamps its keyword(s), and the keyword descriptor(s) it contributes — the
-     * value domain of each keyword is a *reference* (an enum, a method return type, a ctor), reflected at
-     * describe time, never a literal here.
-     *
-     * @return list<AttributeBinding>
-     */
-    /**
      * The generation keywords a class declares at CLASS level, projected through the SAME bindings
      * the property path uses — single-sourced, `beat`/`generate`/`ground` first in their historical
      * order, every other class-targetable attribute after (Prose is property-only and skipped).
@@ -114,6 +105,15 @@ class GenerationAttributesStrategy implements SchemaStrategy
         return $node;
     }
 
+    /**
+     * The single declared attribute↔keyword bindings, consumed by both {@see apply()} (emit) and
+     * {@see GrammarVocabulary} (describe). Each binding names the
+     * attribute, the closure that stamps its keyword(s), and the keyword descriptor(s) it contributes — the
+     * value domain of each keyword is a *reference* (an enum, a method return type, a ctor), reflected at
+     * describe time, never a literal here.
+     *
+     * @return list<AttributeBinding>
+     */
     public static function bindings(): array
     {
         return [
