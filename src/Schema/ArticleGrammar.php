@@ -5,7 +5,7 @@ namespace Splicewire\CompositionSpineData\Schema;
 use ReflectionClass;
 use Splicewire\CompositionEngine\Generation\TreeDrain;
 use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
-use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
+use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
 
 /**
  * Projects a NESTED, model-decided-structure generation schema from a fat root `Data`

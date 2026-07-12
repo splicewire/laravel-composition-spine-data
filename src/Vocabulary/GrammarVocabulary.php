@@ -4,8 +4,8 @@ namespace Splicewire\CompositionSpineData\Vocabulary;
 
 use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Splicewire\CompositionSpineData\KeywordVocabulary;
-use Rushing\LaravelDataSchemas\Vocabulary\KeywordDescriptor;
-use Rushing\LaravelDataSchemas\Vocabulary\KeywordVocabularyDescriber;
+use Schemastud\DataSchemas\Vocabulary\KeywordDescriptor;
+use Schemastud\DataSchemas\Vocabulary\KeywordVocabularyDescriber;
 
 /**
  * The composition generation-grammar VOCABULARY — the `x-swc-*` keyword dialect itself, as opposed to a

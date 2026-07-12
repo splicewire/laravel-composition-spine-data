@@ -3,7 +3,7 @@
 use Splicewire\CompositionSpineData\Attributes\Grounding;
 use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Splicewire\CompositionSpineData\KeywordVocabulary;
-use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
+use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
 use Spatie\LaravelData\Data;
 
 /**

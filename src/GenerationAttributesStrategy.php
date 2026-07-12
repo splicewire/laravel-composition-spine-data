@@ -19,12 +19,12 @@ use Splicewire\CompositionSpineData\Attributes\ProseRole;
 use Splicewire\CompositionSpineData\Attributes\Repeat;
 use Splicewire\CompositionSpineData\Schema\BeatGrammar;
 use Splicewire\CompositionSpineData\Vocabulary\GrammarVocabulary;
-use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
-use Rushing\LaravelDataSchemas\Strategies\SchemaStrategy;
-use Rushing\LaravelDataSchemas\Strategies\SchemaStrategyContext;
-use Rushing\LaravelDataSchemas\Vocabulary\AttributeBinding;
-use Rushing\LaravelDataSchemas\Vocabulary\KeywordDescriptor;
-use Rushing\LaravelDataSchemas\Vocabulary\ValueSource;
+use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
+use Schemastud\DataSchemas\Strategies\SchemaStrategy;
+use Schemastud\DataSchemas\Strategies\SchemaStrategyContext;
+use Schemastud\DataSchemas\Vocabulary\AttributeBinding;
+use Schemastud\DataSchemas\Vocabulary\KeywordDescriptor;
+use Schemastud\DataSchemas\Vocabulary\ValueSource;
 
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,

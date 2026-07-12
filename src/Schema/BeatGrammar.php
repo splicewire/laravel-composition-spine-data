@@ -9,7 +9,7 @@ use Splicewire\CompositionSpineData\Attributes\Ground;
 use Splicewire\CompositionSpineData\Attributes\Prose;
 use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Splicewire\CompositionSpineData\KeywordVocabulary;
-use Rushing\LaravelDataSchemas\Generators\JsonSchemaGenerator;
+use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
 
 /**
  * Projects a chart-dependent generation schema from a fat leaf `Data` class plus a
