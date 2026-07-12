@@ -15,6 +15,10 @@ use Rushing\CompositionSpineData\GenerationAttributesStrategy;
  * Projected to the `x-swc-grounding` keyword by {@see GenerationAttributesStrategy} — the bare
  * source list, or `{fusion, sources}` when a non-default fusion strategy is named (a
  * `composition.fuse.<handle>` capability). The generator reads the keyword, never this attribute.
+ *
+ * Seam note: the source TYPE names (`context_scope`, `webhook`, `facts`) are the ADR-0076 WIRE
+ * vocabulary shared across contexts; the descriptor CONTENTS (selector fields, endpoints) are
+ * host vocabulary — opaque here, parsed only by the host's resolvers.
  */
 #[Attribute(Attribute::TARGET_PROPERTY | Attribute::TARGET_CLASS)]
 class Grounding

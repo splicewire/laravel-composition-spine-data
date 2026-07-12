@@ -30,7 +30,7 @@ class NamedFusionFixture extends Data
 class SupplementGroundingFixture extends Data
 {
     public function __construct(
-        #[Grounding(sources: [['context_scope' => ['silos' => ['background']]]])]
+        #[Grounding(sources: [['context_scope' => ['query' => 'background']]])]
         public array $sections = [],
     ) {}
 }
@@ -59,7 +59,7 @@ it('projects a property-level Grounding supplement onto the field schema', funct
     $schema = (new JsonSchemaGenerator)->generate(new ReflectionClass(SupplementGroundingFixture::class));
 
     expect($schema['properties']['sections'][$vocab->grounding()])
-        ->toBe([['context_scope' => ['silos' => ['background']]]]);
+        ->toBe([['context_scope' => ['query' => 'background']]]);
 });
 
 it('names the keyword through the vocabulary (prefix-agnostic)', function () {
