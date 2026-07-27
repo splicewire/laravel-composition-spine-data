@@ -1,9 +1,9 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 use Attribute;
-use Splicewire\CompositionSpineData\Schema\BeatGrammar;
+use Splicewire\Composition\Schema\BeatGrammar;
 
 /**
  * Marks a property the model generates when its Beat is expanded. The optional

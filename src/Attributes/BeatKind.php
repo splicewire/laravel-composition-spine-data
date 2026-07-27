@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 /**
  * How the interpreter treats a Beat when it reaches the frontier.

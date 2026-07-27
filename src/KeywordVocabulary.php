@@ -1,8 +1,8 @@
 <?php
 
-namespace Splicewire\CompositionSpineData;
+namespace Splicewire\Composition;
 
-use Splicewire\CompositionSpineData\Vocabulary\GrammarVocabulary;
+use Splicewire\Composition\Vocabulary\GrammarVocabulary;
 
 /**
  * The single chokepoint for this engine's schema keywords. Both the emit side (schema generation /

@@ -1,10 +1,10 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 use Attribute;
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Spatie\LaravelData\Data;
+use Splicewire\Composition\GenerationAttributesStrategy;
 
 /**
  * Marks an array property whose items the model MAY place from a fixed palette of embed

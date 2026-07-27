@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Wire;
+namespace Splicewire\Composition\Wire;
 
 /**
  * Shared spine wire DTO (ADR-0093 tier 5).

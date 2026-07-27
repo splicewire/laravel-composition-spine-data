@@ -1,8 +1,8 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\Composition\Tests\Stubs;
 
-use Splicewire\CompositionSpineData\Contracts\AngleContributor;
+use Splicewire\CompositionEngine\Contracts\AngleContributor;
 
 /**
  * A real (non-neutral) angle contributor: it carries an intent, sections, an encouraged component and a

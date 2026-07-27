@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Io;
+namespace Splicewire\Composition\Io;
 
 /**
  * One node of a {@see StructuredExport} reconstructed into the recursive antenna

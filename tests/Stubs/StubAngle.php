@@ -1,9 +1,9 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Tests\Stubs;
+namespace Splicewire\Composition\Tests\Stubs;
 
-use Splicewire\CompositionSpineData\Angles\AngleComposer;
-use Splicewire\CompositionSpineData\Contracts\AngleContract;
+use Splicewire\Composition\Angles\AngleComposer;
+use Splicewire\CompositionEngine\Contracts\AngleContract;
 
 /**
  * A vocabulary-free stand-in for a host's angle enum: one real angle and one neutral base, enough to

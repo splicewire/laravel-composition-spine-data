@@ -11,12 +11,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Splicewire\\CompositionSpineData\\": "src/"
+            "Splicewire\\Composition\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Splicewire\\CompositionSpineData\\Tests\\": "tests/"
+            "Splicewire\\Composition\\Tests\\": "tests/"
         }
     },
     "repositories": [
@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Splicewire\\CompositionSpineData\\CompositionSpineDataServiceProvider"
+                "Splicewire\\Composition\\CompositionDataServiceProvider"
             ]
         },
         "branch-alias": {

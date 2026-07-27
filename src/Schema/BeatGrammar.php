@@ -1,15 +1,15 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Schema;
+namespace Splicewire\Composition\Schema;
 
 use ReflectionClass;
-use Splicewire\CompositionSpineData\Attributes\Beat;
-use Splicewire\CompositionSpineData\Attributes\Generate;
-use Splicewire\CompositionSpineData\Attributes\Ground;
-use Splicewire\CompositionSpineData\Attributes\Prose;
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
-use Splicewire\CompositionSpineData\KeywordVocabulary;
 use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
+use Splicewire\Composition\Attributes\Beat;
+use Splicewire\Composition\Attributes\Generate;
+use Splicewire\Composition\Attributes\Ground;
+use Splicewire\Composition\Attributes\Prose;
+use Splicewire\Composition\GenerationAttributesStrategy;
+use Splicewire\Composition\KeywordVocabulary;
 
 /**
  * Projects a chart-dependent generation schema from a fat leaf `Data` class plus a

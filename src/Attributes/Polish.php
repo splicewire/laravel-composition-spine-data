@@ -1,9 +1,9 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 use Attribute;
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\Composition\GenerationAttributesStrategy;
 
 /**
  * Fences a Beat (property or class) out of auto-polish (issue 20): with `auto: false` the whole-composition

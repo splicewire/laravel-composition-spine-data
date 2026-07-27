@@ -1,12 +1,12 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Angles;
+namespace Splicewire\Composition\Angles;
 
-use Splicewire\CompositionSpineData\Contracts\AngleContract;
-use Splicewire\CompositionSpineData\Contracts\AngleContributor;
-use Splicewire\CompositionSpineData\Contracts\ComponentIntentContract;
-use Splicewire\CompositionSpineData\Contracts\ConversionIntentContract;
-use Splicewire\CompositionSpineData\Contracts\GroundingCategoryContract;
+use Splicewire\CompositionEngine\Contracts\AngleContract;
+use Splicewire\CompositionEngine\Contracts\AngleContributor;
+use Splicewire\CompositionEngine\Contracts\ComponentIntentContract;
+use Splicewire\CompositionEngine\Contracts\ConversionIntentContract;
+use Splicewire\CompositionEngine\Contracts\GroundingCategoryContract;
 
 /**
  * The merged result of composing an ordered set of {@see AngleContributor}s.

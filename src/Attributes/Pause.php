@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 use Attribute;
 

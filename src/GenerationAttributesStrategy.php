@@ -1,30 +1,30 @@
 <?php
 
-namespace Splicewire\CompositionSpineData;
+namespace Splicewire\Composition;
 
 use ReflectionClass;
 use ReflectionProperty;
-use Splicewire\CompositionSpineData\Attributes\Beat;
-use Splicewire\CompositionSpineData\Attributes\BeatKind;
-use Splicewire\CompositionSpineData\Attributes\Cache;
-use Splicewire\CompositionSpineData\Attributes\EmbedPalette;
-use Splicewire\CompositionSpineData\Attributes\Generate;
-use Splicewire\CompositionSpineData\Attributes\Ground;
-use Splicewire\CompositionSpineData\Attributes\Grounding;
-use Splicewire\CompositionSpineData\Attributes\MaxDepth;
-use Splicewire\CompositionSpineData\Attributes\Pause;
-use Splicewire\CompositionSpineData\Attributes\Polish;
-use Splicewire\CompositionSpineData\Attributes\Prose;
-use Splicewire\CompositionSpineData\Attributes\ProseRole;
-use Splicewire\CompositionSpineData\Attributes\Repeat;
-use Splicewire\CompositionSpineData\Schema\BeatGrammar;
-use Splicewire\CompositionSpineData\Vocabulary\GrammarVocabulary;
 use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
 use Schemastud\DataSchemas\Strategies\SchemaStrategy;
 use Schemastud\DataSchemas\Strategies\SchemaStrategyContext;
 use Schemastud\DataSchemas\Vocabulary\AttributeBinding;
 use Schemastud\DataSchemas\Vocabulary\KeywordDescriptor;
 use Schemastud\DataSchemas\Vocabulary\ValueSource;
+use Splicewire\Composition\Attributes\Beat;
+use Splicewire\Composition\Attributes\BeatKind;
+use Splicewire\Composition\Attributes\Cache;
+use Splicewire\Composition\Attributes\EmbedPalette;
+use Splicewire\Composition\Attributes\Generate;
+use Splicewire\Composition\Attributes\Ground;
+use Splicewire\Composition\Attributes\Grounding;
+use Splicewire\Composition\Attributes\MaxDepth;
+use Splicewire\Composition\Attributes\Pause;
+use Splicewire\Composition\Attributes\Polish;
+use Splicewire\Composition\Attributes\Prose;
+use Splicewire\Composition\Attributes\ProseRole;
+use Splicewire\Composition\Attributes\Repeat;
+use Splicewire\Composition\Schema\BeatGrammar;
+use Splicewire\Composition\Vocabulary\GrammarVocabulary;
 
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,

@@ -7,10 +7,10 @@
  * fallback contributor carries its own sections and prompt fragment — so it must be stamped here.
  */
 
-use Splicewire\CompositionSpineData\Angles\AngleComposer;
-use Splicewire\CompositionSpineData\Tests\Stubs\FeatureAngle;
-use Splicewire\CompositionSpineData\Tests\Stubs\NeutralAngle;
-use Splicewire\CompositionSpineData\Tests\Stubs\StubAngle;
+use Splicewire\Composition\Angles\AngleComposer;
+use Splicewire\Composition\Tests\Stubs\FeatureAngle;
+use Splicewire\Composition\Tests\Stubs\NeutralAngle;
+use Splicewire\Composition\Tests\Stubs\StubAngle;
 
 beforeEach(function () {
     config([

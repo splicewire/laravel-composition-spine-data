@@ -1,11 +1,11 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Vocabulary;
+namespace Splicewire\Composition\Vocabulary;
 
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
-use Splicewire\CompositionSpineData\KeywordVocabulary;
 use Schemastud\DataSchemas\Vocabulary\KeywordDescriptor;
 use Schemastud\DataSchemas\Vocabulary\KeywordVocabularyDescriber;
+use Splicewire\Composition\GenerationAttributesStrategy;
+use Splicewire\Composition\KeywordVocabulary;
 
 /**
  * The composition generation-grammar VOCABULARY — the `x-swc-*` keyword dialect itself, as opposed to a

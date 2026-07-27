@@ -1,11 +1,11 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Schema;
+namespace Splicewire\Composition\Schema;
 
 use ReflectionClass;
-use Splicewire\CompositionEngine\Generation\TreeDrain;
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
 use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
+use Splicewire\Composition\GenerationAttributesStrategy;
+use Splicewire\CompositionEngine\Generation\TreeDrain;
 
 /**
  * Projects a NESTED, model-decided-structure generation schema from a fat root `Data`

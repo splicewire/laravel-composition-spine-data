@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData;
+namespace Splicewire\Composition;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -15,7 +15,7 @@ use Illuminate\Support\ServiceProvider;
  * on this package — directly or transitively through the client — gets the same one
  * read path for the generation grammar with no drift.
  */
-class CompositionSpineDataServiceProvider extends ServiceProvider
+class CompositionDataServiceProvider extends ServiceProvider
 {
     public function register(): void
     {

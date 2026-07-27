@@ -1,9 +1,9 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 use Attribute;
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\Composition\GenerationAttributesStrategy;
 
 /**
  * Declares a node's grounding SOURCES as grammar state (ADR-0076): an ordered typed source list

@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Io;
+namespace Splicewire\Composition\Io;
 
 /**
  * Typed view over the schema-driven structured export

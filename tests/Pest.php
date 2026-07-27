@@ -1,5 +1,5 @@
 <?php
 
-use Splicewire\CompositionSpineData\Tests\TestCase;
+use Splicewire\Composition\Tests\TestCase;
 
 uses(TestCase::class)->in('Feature');

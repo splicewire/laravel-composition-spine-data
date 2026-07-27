@@ -1,6 +1,6 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 /**
  * How a grounding field should be treated in prose — the field-level prose

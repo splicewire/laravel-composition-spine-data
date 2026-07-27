@@ -1,9 +1,9 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Attributes;
+namespace Splicewire\Composition\Attributes;
 
 use Attribute;
-use Splicewire\CompositionSpineData\GenerationAttributesStrategy;
+use Splicewire\Composition\GenerationAttributesStrategy;
 
 /**
  * Caps the recursion depth of grammar expansion at a Beat (property or class) subtree

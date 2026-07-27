@@ -1,9 +1,9 @@
 <?php
 
-namespace Splicewire\CompositionSpineData\Tests;
+namespace Splicewire\Composition\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Splicewire\CompositionSpineData\CompositionSpineDataServiceProvider;
+use Splicewire\Composition\CompositionDataServiceProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
 
 abstract class TestCase extends Orchestra
@@ -12,7 +12,7 @@ abstract class TestCase extends Orchestra
     {
         return [
             LaravelDataServiceProvider::class,
-            CompositionSpineDataServiceProvider::class,
+            CompositionDataServiceProvider::class,
         ];
     }
 }
