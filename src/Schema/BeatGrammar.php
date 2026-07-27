@@ -6,10 +6,10 @@ use ReflectionClass;
 use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
 use Splicewire\Composition\Attributes\Beat;
 use Splicewire\Composition\Attributes\Generate;
-use Splicewire\Composition\Attributes\Ground;
 use Splicewire\Composition\Attributes\Prose;
 use Splicewire\Composition\GenerationAttributesStrategy;
 use Splicewire\Composition\KeywordVocabulary;
+use Splicewire\GroundingSpineData\Attributes\Ground;
 
 /**
  * Projects a chart-dependent generation schema from a fat leaf `Data` class plus a

@@ -15,8 +15,6 @@ use Splicewire\Composition\Attributes\BeatKind;
 use Splicewire\Composition\Attributes\Cache;
 use Splicewire\Composition\Attributes\EmbedPalette;
 use Splicewire\Composition\Attributes\Generate;
-use Splicewire\Composition\Attributes\Ground;
-use Splicewire\Composition\Attributes\Grounding;
 use Splicewire\Composition\Attributes\MaxDepth;
 use Splicewire\Composition\Attributes\Pause;
 use Splicewire\Composition\Attributes\Polish;
@@ -25,6 +23,8 @@ use Splicewire\Composition\Attributes\ProseRole;
 use Splicewire\Composition\Attributes\Repeat;
 use Splicewire\Composition\Schema\BeatGrammar;
 use Splicewire\Composition\Vocabulary\GrammarVocabulary;
+use Splicewire\GroundingSpineData\Attributes\Ground;
+use Splicewire\GroundingSpineData\Attributes\Grounding;
 
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,
