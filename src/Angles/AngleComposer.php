@@ -3,7 +3,7 @@
 namespace Splicewire\Composition\Angles;
 
 use RuntimeException;
-use Splicewire\CompositionEngine\Contracts\AngleContract;
+use Splicewire\Composition\Contracts\AngleContract;
 use Splicewire\CompositionEngine\Contracts\AngleContributor;
 
 /**

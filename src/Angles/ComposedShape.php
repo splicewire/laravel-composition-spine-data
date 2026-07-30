@@ -2,10 +2,10 @@
 
 namespace Splicewire\Composition\Angles;
 
-use Splicewire\CompositionEngine\Contracts\AngleContract;
+use Splicewire\Composition\Contracts\AngleContract;
 use Splicewire\CompositionEngine\Contracts\AngleContributor;
-use Splicewire\CompositionEngine\Contracts\ComponentIntentContract;
-use Splicewire\CompositionEngine\Contracts\ConversionIntentContract;
+use Splicewire\Composition\Contracts\ComponentIntentContract;
+use Splicewire\Composition\Contracts\ConversionIntentContract;
 use Splicewire\CompositionEngine\Contracts\GroundingCategoryContract;
 
 /**

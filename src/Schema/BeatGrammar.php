@@ -9,7 +9,7 @@ use Splicewire\Composition\Attributes\Generate;
 use Splicewire\Composition\Attributes\Prose;
 use Splicewire\Composition\GenerationAttributesStrategy;
 use Splicewire\Composition\KeywordVocabulary;
-use Splicewire\GroundingSpineData\Attributes\Ground;
+use Splicewire\Grounding\Attributes\Ground;
 
 /**
  * Projects a chart-dependent generation schema from a fat leaf `Data` class plus a

@@ -2,7 +2,7 @@
 
 namespace Splicewire\Composition\Tests\Stubs;
 
-use Splicewire\CompositionEngine\Contracts\ConversionIntentContract;
+use Splicewire\Composition\Contracts\ConversionIntentContract;
 
 /**
  * A stand-in conversion intent that owns its own CTA wording, exercising the host-owned

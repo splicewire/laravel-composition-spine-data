@@ -23,8 +23,8 @@ use Splicewire\Composition\Attributes\ProseRole;
 use Splicewire\Composition\Attributes\Repeat;
 use Splicewire\Composition\Schema\BeatGrammar;
 use Splicewire\Composition\Vocabulary\GrammarVocabulary;
-use Splicewire\GroundingSpineData\Attributes\Ground;
-use Splicewire\GroundingSpineData\Attributes\Grounding;
+use Splicewire\Grounding\Attributes\Ground;
+use Splicewire\Grounding\Attributes\Grounding;
 
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,

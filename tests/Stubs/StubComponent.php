@@ -2,7 +2,7 @@
 
 namespace Splicewire\Composition\Tests\Stubs;
 
-use Splicewire\CompositionEngine\Contracts\ComponentIntentContract;
+use Splicewire\Composition\Contracts\ComponentIntentContract;
 
 /**
  * A stand-in component intent that owns its own human label, exercising the host-owned
