@@ -24,7 +24,7 @@ class CompositionDataServiceProvider extends ServiceProvider
         // The single keyword chokepoint, prefix driven by config. Bound as a singleton so every emit and
         // read site (across this package and the engine) resolves the same prefix.
         $this->app->singleton(KeywordVocabulary::class, fn () => new KeywordVocabulary(
-            (string) config('composition-spine-data.keyword_prefix', 'swc'),
+            (string) config('composition-spine-data.keyword_prefix', 'splice'),
         ));
     }
 

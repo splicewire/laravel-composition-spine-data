@@ -12,5 +12,5 @@ return [
     | prefixed. Each engine owns its own prefix (composition: swc, knowledge: swk).
     |
     */
-    'keyword_prefix' => env('COMPOSITION_KEYWORD_PREFIX', 'swc'),
+    'keyword_prefix' => env('COMPOSITION_KEYWORD_PREFIX', 'splice'),
 ];

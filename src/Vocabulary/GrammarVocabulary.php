@@ -8,7 +8,7 @@ use Splicewire\Composition\GenerationAttributesStrategy;
 use Splicewire\Composition\KeywordVocabulary;
 
 /**
- * The composition generation-grammar VOCABULARY — the `x-swc-*` keyword dialect itself, as opposed to a
+ * The composition generation-grammar VOCABULARY — the `x-splice-*` keyword dialect itself, as opposed to a
  * profile's grammar instance that *uses* it. This is composition's *content*: the describer *mechanism*
  * (reflect a value domain, render it to JSON Schema + TypeScript) lives in the base
  * {@see KeywordVocabularyDescriber}; here we supply only which keywords the vocabulary comprises, how to
@@ -68,7 +68,7 @@ class GrammarVocabulary extends KeywordVocabularyDescriber
 
     protected function description(): string
     {
-        return 'The composition generation-grammar keyword vocabulary — the x-swc-* dialect a Composition Profile grammar carries. Each property is a keyword; a property schema may carry any subset of these.';
+        return 'The composition generation-grammar keyword vocabulary — the x-splice-* dialect a Composition Profile grammar carries. Each property is a keyword; a property schema may carry any subset of these.';
     }
 
     protected function generatedByComment(): string

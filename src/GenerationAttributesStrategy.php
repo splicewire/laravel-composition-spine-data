@@ -29,7 +29,7 @@ use Splicewire\Grounding\Attributes\Grounding;
 /**
  * Projects the composition generation attributes (`#[Beat]`, `#[Ground]`,
  * `#[Generate]`, `#[Prose]`, `#[Pause]`, `#[Polish]`, `#[Cache]`, `#[Repeat]`,
- * `#[MaxDepth]`) onto a property schema as the corresponding `x-swc-*` vendor keywords
+ * `#[MaxDepth]`) onto a property schema as the corresponding `x-splice-*` vendor keywords
  * ({@see self::bindings()} is the single declaration site). The
  * interpreter reads these keywords — never the PHP attributes — so any schema
  * origin (local PHP, future remote codegen) converges on one read path.

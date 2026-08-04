@@ -10,9 +10,11 @@ use Splicewire\Composition\Vocabulary\GrammarVocabulary;
  * instance, so a keyword name is defined in exactly one place.
  *
  * Two tiers, one rule:
- *  - ENGINE-PRIVATE keywords are namespaced `x-{prefix}-*` (default `swc`), keeping them out of the
- *    shared OpenAPI `x-` commons. Each engine owns its own prefix (composition `swc`, knowledge `swk`),
- *    which falls out for free because each engine ships its own spine-data package.
+ *  - ENGINE-PRIVATE keywords are namespaced `x-{prefix}-*`. The current composition prefix is the
+ *    seam TIER `splice` (composition-spine is a `splicewire/*` paid engine), emitting `x-splice-*`;
+ *    legacy prefixes (`swc`, and the bare empty prefix) still READ via {@see detectPrefix()}. The
+ *    prefix keeps these keywords out of the shared OpenAPI `x-` commons; it is config-driven, so a
+ *    host may override it, and it falls out per-engine because each engine ships its own spine-data.
  *  - BASE/STANDARD vocabulary (`@id`, `x-dereference`) is NOT prefixed — like JSON Schema's `$ref` it is
  *    base-owned (canonical home: the `rushing/laravel-json-reference` leaf) and means the same thing
  *    across every engine. A cross-engine handle only works if the keyword carrying it is unprefixed.
@@ -25,7 +27,7 @@ class KeywordVocabulary
      */
     private const BaseAccessors = ['dereference'];
 
-    public function __construct(public string $prefix = 'swc') {}
+    public function __construct(public string $prefix = 'splice') {}
 
     /**
      * The shared, config-driven vocabulary: the container singleton when one is bound (so every emit and
@@ -49,7 +51,7 @@ class KeywordVocabulary
     /**
      * The vocabulary that AUTHORED a persisted schema, detected from its own keyword keys. A stored antenna
      * schema is only interpretable by the vocab that wrote it — keyword prefixes change over time (a legacy
-     * schema carries bare `x-beat`, a current one `x-swc-beat`), so re-derivation (regenerate / refine)
+     * schema carries bare `x-beat` or legacy `x-swc-beat`, a current one `x-splice-beat`), so re-derivation (regenerate / refine)
      * must read a schema through its OWN prefix, not the reader's active one. Falls back to {@see shared()}
      * when no engine keyword is present (nothing to detect).
      *
@@ -64,8 +66,8 @@ class KeywordVocabulary
 
     /**
      * The keyword prefix a schema was authored with, found by scanning (recursively) for its `beat`
-     * keyword: bare `x-beat` → the legacy empty prefix (`''`); `x-swc-beat` → `swc`. Returns null when no
-     * beat keyword is present.
+     * keyword: bare `x-beat` → the legacy empty prefix (`''`); `x-{prefix}-beat` → `{prefix}` (current
+     * `x-splice-beat` → `splice`, legacy `x-swc-beat` → `swc`). Returns null when no beat keyword is present.
      *
      * @param  array<string, mixed>  $schema
      */
@@ -158,7 +160,7 @@ class KeywordVocabulary
 
     /**
      * Every keyword this vocabulary names, as `accessor => keyword string`
-     * (e.g. `'beat' => 'x-swc-beat'`, `'dereference' => 'x-dereference'`).
+     * (e.g. `'beat' => 'x-splice-beat'`, `'dereference' => 'x-dereference'`).
      *
      * Derived by reflecting the public, no-argument, string-returning accessors on this
      * class — the accessors ARE the source of truth, so a newly added keyword accessor

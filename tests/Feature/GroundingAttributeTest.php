@@ -1,14 +1,14 @@
 <?php
 
+use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
+use Spatie\LaravelData\Data;
 use Splicewire\Composition\Attributes\Grounding;
 use Splicewire\Composition\GenerationAttributesStrategy;
 use Splicewire\Composition\KeywordVocabulary;
-use Schemastud\DataSchemas\Generators\JsonSchemaGenerator;
-use Spatie\LaravelData\Data;
 
 /**
  * Grounding-fusion issue 03 — the `Grounding` attribute projects declared grounding SOURCES to the
- * `x-swc-grounding` keyword through the shared bindings (mirrors the class-level beat-grammar
+ * `x-splice-grounding` keyword through the shared bindings (mirrors the class-level beat-grammar
  * projection guard): class level for node/root declarations, property level for beat supplements.
  */
 #[Grounding(sources: [['context_scope' => 'brand-voice'], ['webhook' => ['endpoint' => 'https://example.test/catalog']]])]
@@ -51,7 +51,7 @@ class SupplementGroundingFixture extends Data
     ) {}
 }
 
-it('projects a class-level Grounding declaration to x-swc-grounding through the shared class-keyword path', function () {
+it('projects a class-level Grounding declaration to x-splice-grounding through the shared class-keyword path', function () {
     $vocab = KeywordVocabulary::shared();
     $keywords = GenerationAttributesStrategy::classKeywords(new ReflectionClass(RootGroundingFixture::class));
 

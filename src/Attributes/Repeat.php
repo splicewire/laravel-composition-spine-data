@@ -9,7 +9,7 @@ use Attribute;
  * (composition-dialect-gaps issue 11). A chorus/refrain in a song, a recurring tagline/CTA in an
  * article, a motif in a video script — the same cross-beat repetition disposition in any medium.
  *
- * Projected to the `x-swc-repeat` keyword by {@see GenerationAttributesStrategy}; stripped by
+ * Projected to the `x-splice-repeat` keyword by {@see GenerationAttributesStrategy}; stripped by
  * `forLlmStrict` so it never reaches the model. Additive-safe: an engine that does not interpret it
  * generates the beat fresh (today's behavior).
  *
@@ -31,7 +31,7 @@ class Repeat
     ) {}
 
     /**
-     * The `x-swc-repeat` value: a bare string for a verbatim reprise, or a `{of, vary}` object when a
+     * The `x-splice-repeat` value: a bare string for a verbatim reprise, or a `{of, vary}` object when a
      * variation instruction is present.
      *
      * @return string|array<string, string>
